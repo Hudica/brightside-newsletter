@@ -1,5 +1,6 @@
 from transformers import AutoModelForSequenceClassification, Trainer, TrainingArguments, AutoTokenizer
 from datasets import Dataset
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
@@ -22,18 +23,21 @@ def tokenize_function(examples):
 # Apply tokenization to the dataset
 tokenized_datasets = dataset.map(tokenize_function, batched=True)
 
-# Splitting the dataset
-train_dataset, eval_dataset = train_test_split(tokenized_datasets, test_size=0.1)
+# Split the dataset into training and validation sets
+split_datasets = tokenized_datasets.train_test_split(test_size=0.1)
+train_dataset = split_datasets['train']
+eval_dataset = split_datasets['test']
 
 #Model/Trainer setup
 training_args = TrainingArguments(
     output_dir='./results',
-    evaluation_strategy="epoch",
-    num_train_epochs=3,
+    eval_strategy="epoch",
+    num_train_epochs=10,
     per_device_train_batch_size=16,
     per_device_eval_batch_size=16,
     weight_decay=0.01,
     logging_dir='./logs',
+    learning_rate=5e-5
 )
 
 model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=3)
@@ -49,3 +53,6 @@ trainer = Trainer(
 )
 
 trainer.train()
+
+model.save_pretrained('./saved_model')
+tokenizer.save_pretrained('./saved_model')
