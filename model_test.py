@@ -1,19 +1,15 @@
 from transformers import pipeline
+from transformers import AutoTokenizer
 
 # Load the model and tokenizer into a sentiment analysis pipeline
 sentiment_pipeline = pipeline("text-classification", model='./saved_model', tokenizer='./saved_model')
+tokenizer = AutoTokenizer.from_pretrained('finiteautomata/bertweet-base-sentiment-analysis')
 
 # Example of testing the model
 texts = [
-    "Thousands of flights in US grounded by massive outage",
-    "Father of Trump gunman called police about son before attack",
-    "US journalist Gershkovich jailed on espionage charges",
-    "Is cold water swimming good for you?",
-    "The strange maths at work in the Tour de France",
-    "Can this mineral help reduce anxiety?",
-    "Daredevil grandma to test new rollercoaster rides",
-    "Britain's most stunning bohemian gardens",
-    "Where to get the best pizza in Chicago"
+    "Trump faces backlash over comments on military strategy",
+    "Public library launches summer reading program",
+    "Daredevil Grandma to test new roller coaster ride"
 ]
 
 results = [sentiment_pipeline(text) for text in texts]
