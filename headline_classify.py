@@ -30,8 +30,8 @@ headlines_df['score'] = [result['score'] for result in results]
 positive_headlines = headlines_df[headlines_df['label'] == 'POS'].sort_values(by='score', ascending=False)
 
 # Select top 3 headlines
-top_3_positive_headlines = positive_headlines.head(10)
+top_3_positive_headlines = positive_headlines.head(3)
 
 # Print the top 3 positive headlines with their URLs
 for index, row in top_3_positive_headlines.iterrows():
-    print(f"{row['Headline']}, {row['Website']} -> {row['score']}")
+    print(f"{row['Headline']}, {row['Website']} -> {row['label']} {row['score']}")
