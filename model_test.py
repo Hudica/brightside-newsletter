@@ -7,9 +7,14 @@ tokenizer = AutoTokenizer.from_pretrained('finiteautomata/bertweet-base-sentimen
 
 # Example of testing the model
 texts = [
-    "Trump faces backlash over comments on military strategy",
-    "Public library launches summer reading program",
-    "Daredevil Grandma to test new roller coaster ride"
+    "CNN commentator blasts Kamala Harris for working to ‘erase all evidence’ she was border czar",
+    "Jordan Chiles Makes The Coolest Gesture Of The Night In U.S. Gymnastics Team Win",
+    "Historian who correctly predicted almost every US election since 1984 gives Harris vs Trump verdict",
+    "Boxing controversy rocks the Olympic Games as Australian star is 'robbed' of victory over reigning world champion: 'I won that fight'",
+    "Paper cut physics pinpoints the most hazardous types of paper",
+    "Teen girl’s joy at getting a rare party invite goes viral: ‘We all want to feel like we belong’",
+    "A boy was in tears because he didn't have PJs for Pajamas Day. His bus driver came to the rescue",
+    "Dutch water innovation: Turning sewage into safe drinking water offers hope amidst global droughts"
 ]
 
 results = [sentiment_pipeline(text) for text in texts]

@@ -5,8 +5,11 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load the sentiment analysis pipeline with your saved model
-sentiment_pipeline = pipeline("text-classification", model='./saved_model', tokenizer='./saved_model')
-
+sentiment_pipeline = pipeline(
+    "text-classification",
+    model="finiteautomata/bertweet-base-sentiment-analysis",
+    tokenizer="finiteautomata/bertweet-base-sentiment-analysis"
+)
 # List of example headlines for sentiment analysis with corresponding labels
 headlines = [
     # Positive Headlines
