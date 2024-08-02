@@ -12,15 +12,27 @@ def fetch_headlines(url, headline_tag, headline_class=None):
             headlines = soup.find_all(headline_tag, class_=headline_class)
         else:
             headlines = soup.find_all(headline_tag)
-        return [headline.get_text().strip() for headline in headlines]
+        
+        articles = []
+        for headline in headlines:
+            headline_text = headline.get_text().strip()
+            headline_url = headline.find_parent('a')
+            if headline_url:
+                headline_url = headline_url['href']
+                if not headline_url.startswith('http'):
+                    headline_url = url + headline_url  # Handling relative URLs
+            else:
+                headline_url = url
+            articles.append({'Headline': headline_text, 'URL': headline_url})
+        return articles
     except Exception as e:
         print(f"Error fetching {url}: {e}")
         return []
 
 # Define the websites and the corresponding tags and classes for headlines
 news_sites = [
-    {'url': 'https://www.bbc.com/news', 'tag': 'h3', 'class': 'gs-c-promo-heading__title'},
-    {'url': 'https://www.bbc.com/innovation', 'tag': 'h3', 'class': 'gs-c-promo-heading__title'},
+    {'url': 'https://www.bbc.com/news', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
+    {'url': 'https://www.bbc.com/innovation', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
     {'url': 'https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFZxYUdjU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen', 'tag': 'h3', 'class': 'ipQwMb ekueJc RD0gLb'},
     {'url': 'https://edition.cnn.com/', 'tag': 'h3', 'class': 'cd__headline-text'},
     {'url': 'https://www.reuters.com/', 'tag': 'h3', 'class': 'MediaStoryCard__title__1h6gk'},
@@ -35,7 +47,6 @@ news_sites = [
     {'url': 'https://www.nationalgeographic.com/', 'tag': 'h2', 'class': 'Section__Title'},
     {'url': 'https://www.sciencenews.org/', 'tag': 'h2', 'class': 'post-title'},
     {'url': 'https://www.scientificamerican.com/', 'tag': 'h2', 'class': 't_article-title'},
-    {'url': 'https://www.nature.com/', 'tag': 'h3', 'class': 'c-card__title'},
     {'url': 'https://www.newscientist.com/', 'tag': 'h2', 'class': 'card__title'}
 ]
 
@@ -44,8 +55,7 @@ all_headlines = []
 for site in news_sites:
     headlines = fetch_headlines(site['url'], site['tag'], site.get('class'))
     print(f"Headlines from {site['url']}: {headlines}")  # Debugging line
-    for headline in headlines:
-        all_headlines.append({'Headline': headline, ' Website': ' ' + site['url']})
+    all_headlines.extend(headlines)
 
 # Check if headlines were fetched
 if not all_headlines:

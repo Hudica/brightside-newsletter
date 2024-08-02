@@ -1,5 +1,7 @@
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 import pandas as pd
+import os
+
 
 # Load the CSV file containing the headlines and URLs
 csv_file = 'headlines.csv'
@@ -32,6 +34,16 @@ positive_headlines = headlines_df[headlines_df['label'] == 'POS'].sort_values(by
 # Select top 3 headlines
 top_3_positive_headlines = positive_headlines.head(3)
 
-# Print the top 3 positive headlines with their URLs
-for index, row in top_3_positive_headlines.iterrows():
-    print(f"{row['Headline']}, {row['Website']} -> {row['label']} {row['score']}")
+# File to store used headlines
+used_headlines_file = 'used_headlines.csv'
+
+# Read existing headlines from the used_headlines.csv file
+used_headlines_df = pd.read_csv(used_headlines_file)
+existing_headlines = set(used_headlines_df['Headline'].tolist())
+
+# Add new headlines to the used_headlines.csv file
+with open(used_headlines_file, 'a') as file:
+    for index, row in top_3_positive_headlines.iterrows():
+        if row['Headline'] not in existing_headlines:
+             file.write(f"{row['Headline']},{row['URL']}\n")
+        print(f"{row['Headline']}, {row['URL']} -> {row['label']} {row['score']}")
