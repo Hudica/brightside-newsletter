@@ -31,12 +31,12 @@ def fetch_headlines(url, headline_tag, headline_class=None):
 
 # Define the websites and the corresponding tags and classes for headlines
 news_sites = [
-    {'url': 'https://www.bbc.com/news', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
+    {'url': 'https://www.bbc.com/sport', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
     {'url': 'https://www.bbc.com/innovation', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
-    {'url': 'https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFZxYUdjU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen', 'tag': 'h3', 'class': 'ipQwMb ekueJc RD0gLb'},
-    {'url': 'https://edition.cnn.com/', 'tag': 'h3', 'class': 'cd__headline-text'},
-    {'url': 'https://www.reuters.com/', 'tag': 'h3', 'class': 'MediaStoryCard__title__1h6gk'},
-    {'url': 'https://www.nytimes.com/', 'tag': 'h3', 'class': 'css-xxaj7r e1xfvim30'},
+    {'url': 'https://www.bbc.com/future-planet', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
+    {'url': 'https://www.bbc.com/travel', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
+    {'url': 'https://www.reuters.com/technology', 'tag': 'h3', 'class': 'MediaStoryCard__title__1h6gk'},
+    {'url': 'https://www.nytimes.com/section/world', 'tag': 'h3', 'class': 'css-xxaj7r e1xfvim30'},
     {'url': 'https://www.theguardian.com/science', 'tag': 'h3', 'class': 'fc-item__title'},
     {'url': 'https://www.nbcnews.com/', 'tag': 'h2', 'class': 'styles_headline__1df1Z'},
     {'url': 'https://www.foxnews.com/', 'tag': 'h2', 'class': 'title title-color-default'},
