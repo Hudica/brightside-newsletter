@@ -24,11 +24,11 @@ rss_urls = [
     'http://rss.cnn.com/rss/cnn_latest.rss',
     'https://feeds.bbci.co.uk/news/science_and_environment/rss.xml',
     'https://www.reuters.com/rssFeed/technology/',
-    'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
-    'https://rss.nytimes.com/services/xml/rss/nyt/Science.xml',
-    'https://rss.nytimes.com/services/xml/rss/nyt/Space.xml',
     'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114',
     'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19854910',
+    'https://feeds.bbci.co.uk/news/technology/rss.xml',
+    'https://feeds.bbci.co.uk/news/rss.xml',
+    'https://feeds.bbci.co.uk/news/education/rss.xml',
     
 ]
 
