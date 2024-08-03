@@ -1,5 +1,5 @@
 """
-WSGI config for newsletter project.
+WSGI config for project_newsletter project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'newsletter.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project_newsletter.settings')
 
 application = get_wsgi_application()
