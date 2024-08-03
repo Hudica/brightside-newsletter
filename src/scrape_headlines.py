@@ -65,6 +65,6 @@ else:
     df['Headline'] = df['Headline'].str.replace(',', '')
 
     # Save the DataFrame to a CSV file
-    df.to_csv('headlines.csv', index=False)
+    df.to_csv('headline_data/headlines.csv', index=False)
 
     print('Headlines have been successfully scraped and saved to headlines.csv')

@@ -8,8 +8,8 @@ def escape_quotes(text):
 
 # Function to load and classify headlines
 def classify_headlines():
-    # Load the CSV file containing the headlines and URLs
-    csv_file = 'headlines.csv'
+    # Load the CSV file containing the headlines and URLss
+    csv_file = 'headline_data/headlines.csv'
     headlines_df = pd.read_csv(csv_file, encoding='utf-8')
 
     # Ensure the column names are correct (case-sensitive)
@@ -37,7 +37,7 @@ def classify_headlines():
     positive_headlines = headlines_df[headlines_df['label'] == 'POS'].sort_values(by='score', ascending=False)
 
     # File to store used headlines
-    used_headlines_file = 'used_headlines.csv'
+    used_headlines_file = 'headline_data/used_headlines.csv'
 
     # Read existing headlines from the used_headlines.csv file
     if os.path.exists(used_headlines_file):
