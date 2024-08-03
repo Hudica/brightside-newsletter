@@ -2,61 +2,67 @@ import pandas as pd
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 import os
 
-# Load the CSV file containing the headlines and URLs
-csv_file = 'headlines.csv'
-headlines_df = pd.read_csv(csv_file)
+# Function to replace double quotes with single quotes for consistent comparison and readability
+def escape_quotes(text):
+    return text.replace('"', "'")
 
-# Ensure the column names are correct (case-sensitive)
-headlines_df.columns = [col.strip() for col in headlines_df.columns]
+# Function to load and classify headlines
+def classify_headlines():
+    # Load the CSV file containing the headlines and URLs
+    csv_file = 'headlines.csv'
+    headlines_df = pd.read_csv(csv_file, encoding='utf-8')
 
-# Load the tokenizer and model from the saved directory
-model_path = './saved_model'
-tokenizer = AutoTokenizer.from_pretrained(model_path)
-model = AutoModelForSequenceClassification.from_pretrained(model_path)
+    # Ensure the column names are correct (case-sensitive)
+    headlines_df.columns = [col.strip() for col in headlines_df.columns]
 
-# Initialize the pipeline
-sentiment_pipeline = pipeline("text-classification", model=model, tokenizer=tokenizer)
+    # Load the tokenizer and model from the saved directory
+    model_path = './saved_model'
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    model = AutoModelForSequenceClassification.from_pretrained(model_path)
 
-# Ensure the headlines are in the correct format (list of strings)
-headlines_list = headlines_df['Headline'].astype(str).tolist()
+    # Initialize the pipeline
+    sentiment_pipeline = pipeline("text-classification", model=model, tokenizer=tokenizer)
 
-# Classify each headline individually and collect the results
-results = [sentiment_pipeline(headline)[0] for headline in headlines_list]
+    # Ensure the headlines are in the correct format (list of strings)
+    headlines_list = headlines_df['Headline'].astype(str).tolist()
 
-# Add the results to the DataFrame
-headlines_df['label'] = [result['label'] for result in results]
-headlines_df['score'] = [result['score'] for result in results]
+    # Classify each headline individually and collect the results
+    results = [sentiment_pipeline(headline)[0] for headline in headlines_list]
 
-# Filter for positive sentiments and sort by confidence
-positive_headlines = headlines_df[headlines_df['label'] == 'POS'].sort_values(by='score', ascending=False)
+    # Add the results to the DataFrame
+    headlines_df['label'] = [result['label'] for result in results]
+    headlines_df['score'] = [result['score'] for result in results]
 
-# File to store used headlines
-used_headlines_file = 'used_headlines.csv'
+    # Filter for positive sentiments and sort by confidence
+    positive_headlines = headlines_df[headlines_df['label'] == 'POS'].sort_values(by='score', ascending=False)
 
-# Ensure the used_headlines.csv file exists
-if not os.path.exists(used_headlines_file):
-    pd.DataFrame(columns=['Headline', 'URL']).to_csv(used_headlines_file, index=False)
+    # File to store used headlines
+    used_headlines_file = 'used_headlines.csv'
 
-# Read existing headlines from the used_headlines.csv file
-used_headlines_df = pd.read_csv(used_headlines_file)
-existing_headlines = set(used_headlines_df['Headline'].tolist())
+    # Read existing headlines from the used_headlines.csv file
+    if os.path.exists(used_headlines_file):
+        used_headlines_df = pd.read_csv(used_headlines_file, encoding='utf-8')
+        existing_headlines = set(used_headlines_df['Headline'].apply(escape_quotes))
+    else:
+        existing_headlines = set()
+        pd.DataFrame(columns=['Headline', 'URL']).to_csv(used_headlines_file, index=False, encoding='utf-8')
 
-# Initialize a list to hold the top 3 new positive headlines
-new_top_3_positive_headlines = []
+    new_top_3_positive_headlines = []
 
-# Iterate through the positive headlines to find the top 3 new ones
-for index, row in positive_headlines.iterrows():
-    if row['Headline'] not in existing_headlines:
-        new_top_3_positive_headlines.append(row)
-        if len(new_top_3_positive_headlines) == 3:
-            break
+    # Iterate through the positive headlines to find the top 3 new ones
+    for _, row in positive_headlines.iterrows():
+        clean_headline = escape_quotes(row['Headline'])
+        if clean_headline not in existing_headlines:
+            new_top_3_positive_headlines.append(row)
+            existing_headlines.add(clean_headline)
+            if len(new_top_3_positive_headlines) == 3:
+                break
 
-# Add new headlines to the used_headlines.csv file
-with open(used_headlines_file, 'a') as file:
-    for row in new_top_3_positive_headlines:
-        file.write(f"{row['Headline']},{row['URL']}\n")
-        print(f"Added headline -> {row['Headline']}")
-        print(f"{row['Headline']}, {row['URL']} -> {row['label']} {row['score']}")
+    # Add new headlines to the used_headlines.csv file
+    with open(used_headlines_file, 'a', encoding='utf-8', newline='') as file:
+        for row in new_top_3_positive_headlines:
+            file.write(f"\"{escape_quotes(row['Headline'])}\",\"{row['URL']}\"\n")
 
-# Print the final new headlines
-print(f"New Top 3 Positive Headlines: {new_top_3_positive_headlines}")
+    print(f"New Top 3 Positive Headlines: {[row['Headline'] for row in new_top_3_positive_headlines]}")
+
+classify_headlines()

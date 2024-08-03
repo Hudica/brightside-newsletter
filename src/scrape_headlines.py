@@ -31,10 +31,7 @@ def fetch_headlines(url, headline_tag, headline_class=None):
 
 # Define the websites and the corresponding tags and classes for headlines
 news_sites = [
-    {'url': 'https://www.bbc.com/sport', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
-    {'url': 'https://www.bbc.com/innovation', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
-    {'url': 'https://www.bbc.com/future-planet', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
-    {'url': 'https://www.bbc.com/travel', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
+    {'url': 'https://www.bbc.com/', 'tag': 'h2', 'class': 'sc-4fedabc7-3 zTZri'},
     {'url': 'https://www.reuters.com/technology', 'tag': 'h3', 'class': 'MediaStoryCard__title__1h6gk'},
     {'url': 'https://www.nytimes.com/section/world', 'tag': 'h3', 'class': 'css-xxaj7r e1xfvim30'},
     {'url': 'https://www.theguardian.com/science', 'tag': 'h3', 'class': 'fc-item__title'},
@@ -63,6 +60,9 @@ if not all_headlines:
 else:
     # Convert the list of headlines to a DataFrame
     df = pd.DataFrame(all_headlines)
+
+    # Remove commas from all headlines and URLs
+    df['Headline'] = df['Headline'].str.replace(',', '')
 
     # Save the DataFrame to a CSV file
     df.to_csv('headlines.csv', index=False)
