@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from verify_email import verify_email
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///subscribers.db'
@@ -27,14 +28,18 @@ def add_subscriber():
     if existing_subscriber is not None:
         return "Email already subscribed. Please use another email.", 409
     
-    try:
-        new_subscriber = Subscriber(email=email)
-        db.session.add(new_subscriber)
-        db.session.commit()
-        return "Subscription successful!", 200
-    except Exception as e:
-        print(str(e))
+    verification_result = verify_email(email)
+    if verification_result and verification_result['data']['status'] == 'valid':
+        try:
+            new_subscriber = Subscriber(email=email)
+            db.session.add(new_subscriber)
+            db.session.commit()
+            return "Subscription successful!", 200
+        except Exception as e:
+            print(str(e))
         return "Error processing your subscription.", 500
+    else:
+        return "Please provide a valid email address.", 400
 
 if __name__ == "__main__":
     app.run(debug=True)
