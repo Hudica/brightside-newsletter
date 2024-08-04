@@ -32,31 +32,30 @@ def send_email(recipients):
         aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
         aws_secret_access_key=os.getenv('AWS_SECRET_KEY')
     )
-    for recipient in recipients:
-        try:
-            response = ses.send_email(
-            Source='brightside-news@hudica.info',
-            Destination={
-                'ToAddresses': [recipient]
+    try:
+        response = ses.send_email(
+        Source='brightside-news@hudica.info',
+        Destination={
+            'ToAddresses': ['hudson@kass.net']
+        },
+        Message={
+            'Subject': {
+                'Data': 'Brightside News - Latest Updates'
             },
-            Message={
-                'Subject': {
-                    'Data': 'Brightside News - Latest Updates'
-                },
-                'Body': {
-                    'Html': {
-                        'Data': html_body
-                    }
+            'Body': {
+                'Html': {
+                    'Data': html_body
                 }
             }
-        )
-            print(f"Email sent to {recipient}! Message ID:", response['MessageId'])
-        except NoCredentialsError:
-            print("Error: No credentials provided for AWS SES.")
-        except PartialCredentialsError:
-            print("Error: Incomplete credentials provided.")
-        except Exception as e:
-            print(f"Error sending to {recipient}:", e)
+        }
+    )
+        print(f"Email sent to user! Message ID:", response['MessageId'])
+    except NoCredentialsError:
+        print("Error: No credentials provided for AWS SES.")
+    except PartialCredentialsError:
+        print("Error: Incomplete credentials provided.")
+    except Exception as e:
+        print(f"Error sending to user:", e)
 
 html_body = f"""
 <html>
