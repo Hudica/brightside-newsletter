@@ -1,7 +1,7 @@
 import feedparser
 import pandas as pd
 
-complete_path = 'data/real_training_data.csv'
+complete_path = '../data/real_training_data.csv'
 
 def getHeadlines(url):
     try:

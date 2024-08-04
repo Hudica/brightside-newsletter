@@ -2,7 +2,7 @@ import pandas as pd
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 import os
 
-csv_path = 'headline_data/'
+csv_path = '../headline_data/'
 
 # Function to replace double quotes with single quotes for consistent comparison and readability
 def escape_quotes(text):
@@ -18,7 +18,7 @@ def classify_headlines():
     headlines_df.columns = [col.strip() for col in headlines_df.columns]
 
     # Load the tokenizer and model from the saved directory
-    model_path = './saved_model'
+    model_path = '../saved_model'
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForSequenceClassification.from_pretrained(model_path)
 
