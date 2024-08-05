@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
-from Flask.verify_email import verify_email
+from verify_email import verify_email  # Ensure this matches the file name exactly
 
 app = Flask(__name__)
 load_dotenv()
@@ -27,13 +27,15 @@ def add_subscriber():
     if not email:
         return "No email provided, please enter an email.", 400
     
-    if subscribers.find_one({"email": email}):
+    normalized_email = email.lower()  # Normalize the email to lowercase
+    
+    if subscribers.find_one({"email": normalized_email}):
         return "Email already subscribed. Please use another email.", 409
     
-    verification_result = verify_email(email) 
+    verification_result = verify_email(email)
     if verification_result and verification_result['data']['status'] == 'valid':
         try:
-            subscribers.insert_one({"email": email})
+            subscribers.insert_one({"email": normalized_email})
             return "Subscription successful!", 200
         except Exception as e:
             print(str(e))
@@ -46,8 +48,10 @@ def unsubscribeAction():
     email = request.form.get('email')
     if not email:
         return "No email provided, please enter an email.", 400
-
-    if subscribers.delete_one({"email": email}).deleted_count > 0:
+    
+    normalized_email = email.lower()  # Normalize the email to lowercase
+    
+    if subscribers.delete_one({"email": normalized_email}).deleted_count > 0:
         return "You have been successfully unsubscribed.", 200
     else:
         return "Email not found in our database.", 404
