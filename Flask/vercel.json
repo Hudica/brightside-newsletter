@@ -1,21 +1,16 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "Flask/app.py",
-        "use": "@vercel/python",
-        "config": {
-          "includeFiles": [
-            "requirements.txt"
-          ]
-        }
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "Flask/app.py"
-      }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "Flask/app.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "Flask/app.py"
+    }
+  ],
+  "includeFiles": ["requirements.txt"]
+}
