@@ -30,7 +30,7 @@ def add_subscriber():
     if subscribers.find_one({"email": email}):
         return "Email already subscribed. Please use another email.", 409
     
-    verification_result = verify_email(email)  # Ensure you handle email verification appropriately
+    verification_result = verify_email(email) 
     if verification_result and verification_result['data']['status'] == 'valid':
         try:
             subscribers.insert_one({"email": email})
@@ -53,4 +53,4 @@ def unsubscribeAction():
         return "Email not found in our database.", 404
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

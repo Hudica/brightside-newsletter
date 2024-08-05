@@ -1,11 +1,22 @@
 {
   "version": 2,
-  "builds": [{
-    "src": "Flask/app.py",
-    "use": "@vercel/python"
-  }],
-  "routes": [{
-    "src": "/(.*)",
-    "dest": "Flask/app.py"
-  }]
+  "builds": [
+    {
+      "src": "Flask/app.py",
+      "use": "@vercel/python",
+      "config": {
+        "includeFiles": [
+          "Flask/verify_email.py",
+          "Flask/templates/**",
+          "Flask/requirements.txt"
+        ]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "Flask/app.py"
+    }
+  ]
 }
