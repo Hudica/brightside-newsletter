@@ -13,7 +13,7 @@ headlines = df['Headline'].tail(3).tolist()
 
 urls = df['URL'].tail(3).tolist()
 
-desc = df['Description'].tail(3).tolist()
+description = df['Description'].tail(3).tolist()
 
 load_dotenv()
 
@@ -36,7 +36,7 @@ def send_email(recipients):
     )
     try:
         response = ses.send_email(
-        Source='brightside-news@hudica.info',
+        Source='BrightSide Newsletter <brightside-news@hudica.info>',
         Destination={
             'ToAddresses': ['hudson@kass.net']
         },
@@ -64,24 +64,31 @@ html_body = f"""
 <head>
     <style>
         body {{
-            font-family: 'Arial', sans-serif;
+            font-family: 'Helvetica', 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
-            color: #4A4A4A;
-            background-color: #F9F9F9;
+            color: #333333;
+            background: linear-gradient(to right, #f6d365, #fda085); /* Simplified gradient */
+            background: -webkit-linear-gradient(to right, #f6d365, #fda085); /* For Safari 5.1 to 6.0 */
+            background: -moz-linear-gradient(to right, #f6d365, #fda085); /* For Firefox 3.6 to 15 */
+            background: -o-linear-gradient(to right, #f6d365, #fda085); /* For Opera 11.1 to 12.0 */
+            background: -ms-linear-gradient(to right, #f6d365, #fda085); /* For Internet Explorer 10 */
             line-height: 1.6;
             text-align: center;
+            box-sizing: border-box; /* Ensures padding doesn't break layout */
         }}
         h1 {{
-            color: #3498db;
+            color: #ff6347;
             margin-bottom: 20px;
+            font-size: 2em; /* Responsive font size */
         }}
         p {{
-            font-size: 18px;
-            color: #666666;
+            font-size: 1.2em; /* Responsive font size */
+            color: #2c3e50;
+            margin-bottom: 20px;
         }}
         a {{
-            color: #e67e22;
+            color: #0066cc;
             text-decoration: none;
         }}
         a:hover {{
@@ -90,25 +97,47 @@ html_body = f"""
         ul {{
             list-style-type: none;
             padding: 0;
+            max-width: 90%; /* Responsive width */
+            margin: 0 auto;
         }}
         li {{
-            background-color: #ffffff;
-            margin: 10px auto;
+            margin: 20px 0;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 90%;
-            max-width: 800px;
-            text-align: left;
+            background-color: #ffffff;
+            border: 2px solid #dddddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center align for list items */
         }}
-        .description {{
-            font-size: 16px;
-            color: #333;
-            padding-top: 10px;
+        li strong {{
+            font-size: 1.5em; /* Responsive font size */
+            display: block;
+            margin-bottom: 10px;
+        }}
+        li p {{
+            margin-top: 10px;
+            font-size: 1em; /* Responsive font size */
+            color: #555555;
+        }}
+        @media (max-width: 600px) {{
+            body {{
+                padding: 10px;
+            }}
+            h1 {{
+                font-size: 1.5em;
+            }}
+            p {{
+                font-size: 1em;
+            }}
+            li {{
+                padding: 15px;
+            }}
+            li strong {{
+                font-size: 1.2em;
+            }}
+            li p {{
+                font-size: 0.9em;
+            }}
         }}
     </style>
 </head>
@@ -118,19 +147,21 @@ html_body = f"""
     <ul>
 """
 
-for headline, url, desc in zip(headlines, urls, desc):  # Ensure descriptions is your list of descriptions
+for headline, url, desc in zip(headlines, urls, description):
     html_body += f"""        <li>
             <strong><a href="{url}" target="_blank">{headline}</a></strong>
-            <p class='description'>{desc}</p>  <!-- Description added below the headline -->
+            <p>{desc}</p>
         </li>
 """
 
 html_body += """
     </ul>
     <p>Thank you for subscribing to our newsletter. Stay tuned for more updates!</p>
+    <p>To unsubscribe from our newsletter, please click <a href="http://yourdomain.com/unsubscribe">here</a>.</p>
 </body>
 </html>
 """
+
 
 
 
