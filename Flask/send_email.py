@@ -2,29 +2,27 @@ import boto3
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 import os
 from dotenv import load_dotenv
-import sqlite3
 import pandas as pd
+from pymongo import MongoClient
 
 csv_file_path = '../headline_data/used_headlines.csv'
 
 df = pd.read_csv(csv_file_path)
 
 headlines = df['Headline'].tail(3).tolist()
-
 urls = df['URL'].tail(3).tolist()
-
 description = df['Description'].tail(3).tolist()
 
 load_dotenv()
 
+# Set up MongoDB connection
+mongo_conn_string = os.getenv('MONGO_CONN_STRING')
+client = MongoClient(mongo_conn_string)
+db = client.BrightSideUsers
+subscribers_collection = db.emails
+
 def fetch_recipients():
-    conn = sqlite3.connect('instance/subscribers.db')
-    cursor = conn.cursor()
-    cursor.execute('SELECT email FROM subscriber')
-    rows = cursor.fetchall()
-    emails = [row[0] for row in rows]
-    cursor.close()
-    conn.close()
+    emails = [doc['email'] for doc in subscribers_collection.find({}, {"_id": 0, "email": 1})]
     return emails
 
 def send_email(recipients):
@@ -37,21 +35,21 @@ def send_email(recipients):
     for recipient in recipients:
         try:
             response = ses.send_email(
-            Source='brightside-news@hudica.info',
-            Destination={
-                'ToAddresses': [recipient]
-            },
-            Message={
-                'Subject': {
-                    'Data': 'Brightside News - Latest Updates'
+                Source='BrightSide Newsletter <brightside-news@hudica.info>',
+                Destination={
+                    'ToAddresses': [recipient]
                 },
-                'Body': {
-                    'Html': {
-                        'Data': html_body
+                Message={
+                    'Subject': {
+                        'Data': 'Brightside News - Latest Updates'
+                    },
+                    'Body': {
+                        'Html': {
+                            'Data': html_body
+                        }
                     }
                 }
-            }
-        )
+            )
             print(f"Email sent to {recipient}! Message ID:", response['MessageId'])
         except NoCredentialsError:
             print("Error: No credentials provided for AWS SES.")
@@ -162,10 +160,6 @@ html_body += """
 </body>
 </html>
 """
-
-
-
-
 
 recipients = fetch_recipients()
 send_email(recipients)
