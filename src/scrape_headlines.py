@@ -1,7 +1,7 @@
 import feedparser
 import pandas as pd
 
-csv_path = '../headline_data/headlines.csv'
+csv_path = './headline_data/headlines.csv'
 
 # Function to fetch and parse headlines from an RSS feed
 def fetch_headlines_from_rss(url):
