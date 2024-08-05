@@ -6,7 +6,7 @@
         "use": "@vercel/python",
         "config": {
           "includeFiles": [
-            "Flask/requirements.txt"
+            "requirements.txt"
           ]
         }
       }
