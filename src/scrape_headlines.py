@@ -11,9 +11,10 @@ def fetch_headlines_from_rss(url):
         for entry in feed.entries:
             headline_text = entry.title
             headline_url = entry.link
+            headline_desc = entry.description
             # Some feeds include a thumbnail, accessed differently depending on the feed
             thumbnail = entry.media_thumbnail[0]['url'] if 'media_thumbnail' in entry else 'No Thumbnail'
-            articles.append({'Headline': headline_text, 'URL': headline_url, 'Thumbnail': thumbnail})
+            articles.append({'Headline': headline_text, 'URL': headline_url, 'Thumbnail': thumbnail, 'Description': headline_desc})
         return articles
     except Exception as e:
         print(f"Error fetching {url}: {e}")
@@ -29,6 +30,7 @@ rss_urls = [
     'https://feeds.bbci.co.uk/news/technology/rss.xml',
     'https://feeds.bbci.co.uk/news/rss.xml',
     'https://feeds.bbci.co.uk/news/education/rss.xml',
+    'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=44877279',
     
 ]
 

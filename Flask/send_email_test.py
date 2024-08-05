@@ -13,6 +13,8 @@ headlines = df['Headline'].tail(3).tolist()
 
 urls = df['URL'].tail(3).tolist()
 
+desc = df['Description'].tail(3).tolist()
+
 load_dotenv()
 
 def fetch_recipients():
@@ -62,20 +64,24 @@ html_body = f"""
 <head>
     <style>
         body {{
-            font-family: 'Helvetica', 'Arial', sans-serif;
-            margin: 20px;
-            color: #333333;
-            background-color: #f4f4f9;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #4A4A4A;
+            background-color: #F9F9F9;
             line-height: 1.6;
+            text-align: center;
         }}
         h1 {{
-            color: #0066cc;
+            color: #3498db;
+            margin-bottom: 20px;
         }}
         p {{
-            font-size: 16px;
+            font-size: 18px;
+            color: #666666;
         }}
         a {{
-            color: #0066cc;
+            color: #e67e22;
             text-decoration: none;
         }}
         a:hover {{
@@ -86,11 +92,23 @@ html_body = f"""
             padding: 0;
         }}
         li {{
-            margin: 10px 0;
-            padding: 10px;
             background-color: #ffffff;
-            border: 1px solid #dddddd;
-            border-radius: 8px;
+            margin: 10px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 800px;
+            text-align: left;
+        }}
+        .description {{
+            font-size: 16px;
+            color: #333;
+            padding-top: 10px;
         }}
     </style>
 </head>
@@ -100,9 +118,10 @@ html_body = f"""
     <ul>
 """
 
-for headline, url in zip(headlines, urls):
+for headline, url, desc in zip(headlines, urls, desc):  # Ensure descriptions is your list of descriptions
     html_body += f"""        <li>
             <strong><a href="{url}" target="_blank">{headline}</a></strong>
+            <p class='description'>{desc}</p>  <!-- Description added below the headline -->
         </li>
 """
 

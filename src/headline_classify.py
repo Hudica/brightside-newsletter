@@ -47,7 +47,7 @@ def classify_headlines():
         existing_headlines = set(used_headlines_df['Headline'].apply(escape_quotes))
     else:
         existing_headlines = set()
-        pd.DataFrame(columns=['Headline', 'URL']).to_csv(used_headlines_file, index=False, encoding='utf-8')
+        pd.DataFrame(columns=['Headline', 'URL', 'Description']).to_csv(used_headlines_file, index=False, encoding='utf-8')
 
     new_top_3_positive_headlines = []
 
@@ -60,10 +60,9 @@ def classify_headlines():
             if len(new_top_3_positive_headlines) == 3:
                 break
 
-    # Add new headlines to the used_headlines.csv file
     with open(used_headlines_file, 'a', encoding='utf-8', newline='') as file:
         for row in new_top_3_positive_headlines:
-            file.write(f"\"{escape_quotes(row['Headline'])}\",\"{row['URL']}\"\n")
+            file.write(f"\"{escape_quotes(row['Headline'])}\",\"{row['URL']}\",\"{escape_quotes(row['Description'])}\"\n")
 
     print(f"New Top 3 Positive Headlines: {[row['Headline'] for row in new_top_3_positive_headlines]}")
 
