@@ -18,6 +18,10 @@ class Subscriber(db.Model):
 def index():
     return render_template('index.html')
 
+@app.route('/unsubscribe')
+def unsubscribe():
+    return render_template('unsubscribe.html')
+
 @app.route('/subscribe', methods=['POST'])
 def add_subscriber():
     email = request.form.get('email')
@@ -40,6 +44,23 @@ def add_subscriber():
         return "Error processing your subscription.", 500
     else:
         return "Please provide a valid email address.", 400
+@app.route('/unsubscribeAction', methods=['POST'])
+def unsubscribeAction():
+    email = request.form.get('email')
+    if not email:
+        return "No email provided, please enter an email.", 400
 
+    subscriber = Subscriber.query.filter_by(email=email).first()
+    if subscriber:
+        try:
+            db.session.delete(subscriber)
+            db.session.commit()
+            return "You have been successfully unsubscribed.", 200
+        except Exception as e:
+            print(str(e))
+            return "Error processing your unsubscribe request.", 500
+    else:
+        return "Email not found in our database.", 404
+    
 if __name__ == "__main__":
     app.run(debug=True)

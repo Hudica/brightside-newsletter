@@ -65,22 +65,24 @@ html_body = f"""
         body {{
             font-family: 'Helvetica', 'Arial', sans-serif;
             margin: 20px;
-            color: #333333;
-            background-color: #f4f4f9;
+            color: #35495E;  # Updated to a darker, richer blue for better readability
+            background-color: #F7F7F7;  # A softer, lighter grey to keep it light and modern
             line-height: 1.6;
         }}
         h1 {{
-            color: #0066cc;
+            color: #D35400;  # A strong, assertive orange for headings to capture attention
         }}
         p {{
             font-size: 16px;
+            color: #2C3E50;  # Deep blue for body text provides a calm, professional tone
         }}
         a {{
-            color: #0066cc;
+            color: #2980B9;  # Bright blue for links to stand out nicely
             text-decoration: none;
         }}
         a:hover {{
             text-decoration: underline;
+            color: #3498DB;  # Lighter shade of blue on hover for a pleasant visual effect
         }}
         ul {{
             list-style-type: none;
@@ -89,8 +91,8 @@ html_body = f"""
         li {{
             margin: 10px 0;
             padding: 10px;
-            background-color: #ffffff;
-            border: 1px solid #dddddd;
+            background-color: #ECF0F1;  # Very light gray background in list items for subtle contrast
+            border: 1px solid #BDC3C7;  # Border color for list items
             border-radius: 8px;
         }}
     </style>
@@ -107,12 +109,15 @@ for headline, url in zip(headlines, urls):
         </li>
 """
 
-html_body += """
+html_body += f"""
     </ul>
     <p>Thank you for subscribing to our newsletter. Stay tuned for more updates!</p>
+    <p>To unsubscribe from our newsletter, please click <a href="http://yourdomain.com/unsubscribe">here</a>.</p>
 </body>
 </html>
 """
+
+
 
 
 
