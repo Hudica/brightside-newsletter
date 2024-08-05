@@ -18,4 +18,4 @@ results/
 headlines.csv
 used_headlines.csv
 *.csv
-instance/
+*.db
