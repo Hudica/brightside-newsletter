@@ -11,6 +11,5 @@
       "src": "/(.*)",
       "dest": "Flask/app.py"
     }
-  ],
-  "includeFiles": ["requirements.txt"]
+  ]
 }
