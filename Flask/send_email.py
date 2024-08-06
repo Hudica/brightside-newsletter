@@ -156,7 +156,7 @@ for headline, url, desc in zip(headlines, urls, description):
 html_body += """
     </ul>
     <p>Thank you for subscribing to our newsletter. Stay tuned for more updates!</p>
-    <p>To unsubscribe from our newsletter, please click <a href="http://yourdomain.com/unsubscribe">here</a>.</p>
+    <p>To unsubscribe from our newsletter, please click <a href="http://news.hudica.info/unsubscribe">here</a>.</p>
 </body>
 </html>
 """

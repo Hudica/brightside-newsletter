@@ -88,6 +88,12 @@
             background-color: #e64a19;
         }
 
+        #message {
+            color: #ff8f4e;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 6vw; /* Larger font size for small screens */
@@ -107,6 +113,25 @@
             }
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#subscribeForm').submit(function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            $.ajax({
+                url: '/subscribe',
+                type: 'POST',
+                data: $(this).serialize(), // Serialize form data
+                success: function(response) {
+                    $('#message').text(response); // Display success message
+                },
+                error: function(xhr) {
+                    $('#message').text(xhr.responseText); // Display error message
+                }
+            });
+        });
+    });
+    </script>
 </head>
 <body>
     <div class="header">
@@ -114,10 +139,11 @@
         <p>Your daily dose of uplifting news from around the globe. Join our community to receive stories that inspire positivity, hope, and joy directly to your inbox.</p>
     </div>
     <div class="container">
-        <form method="post" action="/subscribe">
+        <form id="subscribeForm">
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
             <button type="submit">Subscribe Now</button>
         </form>
+        <div id="message"></div> <!-- Message display -->
     </div>
 </body>
 </html>
