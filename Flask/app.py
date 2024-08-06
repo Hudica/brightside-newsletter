@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
-from verify_email import verify_email
+from Flask.verify_email import verify_email
 
 app = Flask(__name__)
 load_dotenv()
