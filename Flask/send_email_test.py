@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import pandas as pd
 from pymongo import MongoClient
 
-csv_file_path = '../headline_data/used_headlines.csv'
+csv_file_path = './headline_data/used_headlines.csv'
 
 df = pd.read_csv(csv_file_path)
 
@@ -32,12 +32,12 @@ def send_email(recipients):
         aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
         aws_secret_access_key=os.getenv('AWS_SECRET_KEY')
     )
-    for recipient in recipients:
+    for i in range(1):
         try:
             response = ses.send_email(
                 Source='BrightSide Newsletter <brightside-news@hudica.info>',
                 Destination={
-                    'ToAddresses': [recipient]
+                    'ToAddresses': ['hudson@kass.net']
                 },
                 Message={
                     'Subject': {
@@ -50,13 +50,13 @@ def send_email(recipients):
                     }
                 }
             )
-            print(f"Email sent to {recipient}! Message ID:", response['MessageId'])
+            print(f"Email sent to hudson! Message ID:", response['MessageId'])
         except NoCredentialsError:
             print("Error: No credentials provided for AWS SES.")
         except PartialCredentialsError:
             print("Error: Incomplete credentials provided.")
         except Exception as e:
-            print(f"Error sending to {recipient}:", e)
+            print(f"Error sending to hudson:", e)
 
 html_body = f"""
 <html>
@@ -156,7 +156,7 @@ for headline, url, desc in zip(headlines, urls, description):
 html_body += """
     </ul>
     <p>Thank you for subscribing to our newsletter. Stay tuned for more updates!</p>
-    <p>To unsubscribe from our newsletter, please click <a href="http://yourdomain.com/unsubscribe">here</a>.</p>
+    <p>To unsubscribe from our newsletter, please click <a href="http://news.hudica.info/unsubscribe">here</a>.</p>
 </body>
 </html>
 """
