@@ -147,7 +147,7 @@ html_body = f"""
 
 for headline, url, desc in zip(headlines, urls, description):
     html_body += f"""        <li style="margin: 20px 0; padding: 20px; background-color: #2e2e2e; border: 2px solid #444444; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); text-align: left;">
-            <strong style="font-size: 1.5em; display: block; margin-bottom: 10px; color: #ffd700;"><a href="{url}" target="_blank" style="color: #ffd700; text-decoration: none;">{headline}</a></strong>
+            <strong style="font-size: 1.5em; display: block; margin-bottom: 10px; color: #ffd700;"><a href="{url}" target="_blank" style="color: #ffd700; text-decoration: none;"><u>{headline}</u></a></strong>
             <p style="margin-top: 10px; font-size: 1em; color: #dcdcdc;">{desc}</p>
         </li>
 """
