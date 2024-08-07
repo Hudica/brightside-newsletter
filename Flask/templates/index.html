@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(to right, #3a3a3a, #1e1e1e);
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -15,7 +15,7 @@
             align-items: center;
             text-align: center;
             padding: 5vh 2vw;
-            color: #ff8f4e;
+            color: #ffffff;
             box-sizing: border-box;
         }
 
@@ -24,30 +24,44 @@
             margin-bottom: 5vh;
         }
 
-        h1 {
-            font-size: 5vw; /* Scales with viewport width */
-            font-weight: bold;
-            margin-bottom: 0.5em;
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
-        p {
-            font-size: 2.5vw; /* Scales with viewport width */
-            max-width: 90vw; /* Scales with viewport width */
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+            animation: fadeIn 1.5s ease-in-out;
+            color: #ffd700;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            max-width: 800px;
             margin: 0 auto 5vh auto;
+            animation: fadeIn 2s ease-in-out;
+            color: #dcdcdc;
+            line-height: 1.6;
         }
 
         .container {
-            background: linear-gradient(to right, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8));
+            background: rgba(50, 50, 50, 0.9);
             padding: 5vh 2vw;
             border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 80vw; /* Scales with viewport width */
-            max-width: 600px; /* Maximum width */
+            width: 80vw;
+            max-width: 600px;
             transition: transform 0.3s ease-in-out;
+            animation: slideIn 1.5s ease-in-out;
         }
 
         .container:hover {
@@ -55,24 +69,25 @@
         }
 
         input[type="email"] {
-            width: 80%; /* Width scales based on the container */
+            width: 80%;
             max-width: 400px;
             padding: 1em;
             margin-bottom: 20px;
             border-radius: 4px;
-            border: 2px solid #a2cfff;
+            border: 2px solid #ffd700;
             background-color: transparent;
-            color: #FFFFFF;
-            font-size: 1rem; /* Fixed font size */
+            color: #ffffff;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease-in-out;
         }
 
         input[type="email"]:focus {
-            box-shadow: 0 0 10px #fff;
+            box-shadow: 0 0 10px #ffd700;
         }
 
         button {
-            background-color: #ff5722;
-            color: white;
+            background-color: #ffd700;
+            color: #1e1e1e;
             border: none;
             padding: 1em 2em;
             text-transform: uppercase;
@@ -81,27 +96,30 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background 0.3s ease-in-out;
-            font-size: 1rem; /* Fixed font size */
+            font-size: 1rem;
         }
 
         button:hover {
-            background-color: #e64a19;
+            background-color: #e6c200;
         }
 
         #message {
-            color: #ff8f4e;
+            color: #ffd700;
             font-size: 1.2rem;
             margin-top: 20px;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         @media (max-width: 600px) {
             h1 {
-                font-size: 6vw; /* Larger font size for small screens */
+                font-size: 6vw;
             }
 
-            p {
-                font-size: 4vw; /* Larger font size for small screens */
+            .description {
+                font-size: 4vw;
+                max-width: 90vw;
                 margin-bottom: 3vh;
+                line-height: 1.4;
             }
 
             .container {
@@ -109,24 +127,38 @@
             }
 
             input[type="email"], button {
-                font-size: 1.2rem;
+                font-size: 4vw;
             }
+
+            #message {
+                font-size: 4vw;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
     $(document).ready(function() {
         $('#subscribeForm').submit(function(event) {
-            event.preventDefault(); // Prevent the default form submission
+            event.preventDefault();
             $.ajax({
                 url: '/subscribe',
                 type: 'POST',
-                data: $(this).serialize(), // Serialize form data
+                data: $(this).serialize(),
                 success: function(response) {
-                    $('#message').text(response); // Display success message
+                    $('#message').text(response);
                 },
                 error: function(xhr) {
-                    $('#message').text(xhr.responseText); // Display error message
+                    $('#message').text(xhr.responseText);
                 }
             });
         });
@@ -135,15 +167,18 @@
 </head>
 <body>
     <div class="header">
+        <img src="{{ url_for('static', filename='images/brightside_logo.webp') }}" alt="BrightSide Logo" class="logo">
         <h1>Welcome to The Brightside Newsletter!</h1>
-        <p>Your daily dose of uplifting news from around the globe. Join our community to receive stories that inspire positivity, hope, and joy directly to your inbox.</p>
+        <p class="description">
+            The Brightside Newsletter is a completely free subscription that is easy to unsubscribe from whenever you choose. The majority of the news we consume is negative, so I created this newsletter to bring more positivity into the world. Using a custom-tuned AI sentiment analysis model trained on many different headlines, we do our best to find the top positive headlines in our database and deliver them to you. This is a fun side project I made to gain experience and spread a bit more joy and hope in the world.
+        </p>
     </div>
     <div class="container">
         <form id="subscribeForm">
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
             <button type="submit">Subscribe Now</button>
         </form>
-        <div id="message"></div> <!-- Message display -->
+        <div id="message"></div>
     </div>
 </body>
 </html>
