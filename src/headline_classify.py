@@ -26,7 +26,7 @@ def classify_headlines():
     sentiment_pipeline = pipeline("text-classification", model=model, tokenizer=tokenizer)
 
     # Ensure the headlines are in the correct format (list of strings)
-    headlines_list = headlines_df['Headline'].astype(str).tolist()
+    headlines_list = headlines_df['Headline'] + ' ' + headlines_df['Description'].astype(str).tolist()
 
     # Classify each headline individually and collect the results
     results = [sentiment_pipeline(headline)[0] for headline in headlines_list]
@@ -49,21 +49,21 @@ def classify_headlines():
         existing_headlines = set()
         pd.DataFrame(columns=['Headline', 'URL', 'Description']).to_csv(used_headlines_file, index=False, encoding='utf-8')
 
-    new_top_3_positive_headlines = []
+    new_top_4_positive_headlines = []
 
-    # Iterate through the positive headlines to find the top 3 new ones
+    # Iterate through the positive headlines to find the top 4 new ones
     for _, row in positive_headlines.iterrows():
         clean_headline = escape_quotes(row['Headline'])
         if clean_headline not in existing_headlines:
-            new_top_3_positive_headlines.append(row)
+            new_top_4_positive_headlines.append(row)
             existing_headlines.add(clean_headline)
-            if len(new_top_3_positive_headlines) == 3:
+            if len(new_top_4_positive_headlines) == 4:
                 break
 
     with open(used_headlines_file, 'a', encoding='utf-8', newline='') as file:
-        for row in new_top_3_positive_headlines:
+        for row in new_top_4_positive_headlines:
             file.write(f"\"{escape_quotes(row['Headline'])}\",\"{row['URL']}\",\"{escape_quotes(row['Description'])}\"\n")
 
-    print(f"New Top 3 Positive Headlines: {[row['Headline'] for row in new_top_3_positive_headlines]}")
+    print(f"New Top 4 Positive Headlines: {[row['Headline'] for row in new_top_4_positive_headlines]}")
 
 classify_headlines()

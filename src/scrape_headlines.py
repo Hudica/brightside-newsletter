@@ -31,6 +31,7 @@ rss_urls = [
     'https://feeds.bbci.co.uk/news/rss.xml',
     'https://feeds.bbci.co.uk/news/education/rss.xml',
     'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=44877279',
+    'http://rss.cnn.com/rss/cnn_latest.rss/',
     
 ]
 

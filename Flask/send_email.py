@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import pandas as pd
 from pymongo import MongoClient
 
-csv_file_path = '../headline_data/used_headlines.csv'
+csv_file_path = './headline_data/used_headlines.csv'
 
 df = pd.read_csv(csv_file_path)
 
@@ -66,28 +66,24 @@ html_body = f"""
             font-family: 'Helvetica', 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
-            color: #333333;
-            background: linear-gradient(to right, #f6d365, #fda085); /* Simplified gradient */
-            background: -webkit-linear-gradient(to right, #f6d365, #fda085); /* For Safari 5.1 to 6.0 */
-            background: -moz-linear-gradient(to right, #f6d365, #fda085); /* For Firefox 3.6 to 15 */
-            background: -o-linear-gradient(to right, #f6d365, #fda085); /* For Opera 11.1 to 12.0 */
-            background: -ms-linear-gradient(to right, #f6d365, #fda085); /* For Internet Explorer 10 */
-            line-height: 1.6;
+            color: #f0f0f0;
+            background-color: #1e1e1e;
+            background: linear-gradient(to right, #3a3a3a, #1e1e1e);
             text-align: center;
-            box-sizing: border-box; /* Ensures padding doesn't break layout */
+            box-sizing: border-box;
         }}
         h1 {{
-            color: #ff6347;
+            color: #ffd700;
             margin-bottom: 20px;
-            font-size: 2em; /* Responsive font size */
+            font-size: 2.5em;
         }}
         p {{
-            font-size: 1.2em; /* Responsive font size */
-            color: #2c3e50;
+            font-size: 1.2em;
+            color: #dcdcdc;
             margin-bottom: 20px;
         }}
         a {{
-            color: #0066cc;
+            color: #ffd700;
             text-decoration: none;
         }}
         a:hover {{
@@ -96,34 +92,35 @@ html_body = f"""
         ul {{
             list-style-type: none;
             padding: 0;
-            max-width: 90%; /* Responsive width */
+            max-width: 90%;
             margin: 0 auto;
         }}
         li {{
             margin: 20px 0;
             padding: 20px;
-            background-color: #ffffff;
-            border: 2px solid #dddddd;
+            background-color: #2e2e2e;
+            border: 2px solid #444444;
             border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center; /* Center align for list items */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
         }}
         li strong {{
-            font-size: 1.5em; /* Responsive font size */
+            font-size: 1.5em;
             display: block;
             margin-bottom: 10px;
+            color: #ffd700;
         }}
         li p {{
             margin-top: 10px;
-            font-size: 1em; /* Responsive font size */
-            color: #555555;
+            font-size: 1em;
+            color: #dcdcdc;
         }}
         @media (max-width: 600px) {{
             body {{
                 padding: 10px;
             }}
             h1 {{
-                font-size: 1.5em;
+                font-size: 2em;
             }}
             p {{
                 font-size: 1em;
@@ -140,23 +137,32 @@ html_body = f"""
         }}
     </style>
 </head>
-<body>
-    <h1>Welcome to The Brightside Newsletter!</h1>
-    <p>Here are the latest updates from positive news worldwide, delivered straight to your inbox:</p>
-    <ul>
+<body style="background-color: #1e1e1e; background: linear-gradient(to right, #3a3a3a, #1e1e1e); color: #f0f0f0; text-align: center; box-sizing: border-box;">
+    <h1 style="color: #ffd700; margin-bottom: 20px; font-size: 2.5em;">Welcome to The Brightside Newsletter!</h1>
+    <p style="font-size: 1.2em; color: #dcdcdc; margin-bottom: 20px;">
+        Here are the latest updates from positive news worldwide, delivered straight to your inbox. These articles were marked as the most positive by the custom AI model.
+    </p>
+    <ul style="list-style-type: none; padding: 0; max-width: 90%; margin: 0 auto;">
 """
 
 for headline, url, desc in zip(headlines, urls, description):
-    html_body += f"""        <li>
-            <strong><a href="{url}" target="_blank">{headline}</a></strong>
-            <p>{desc}</p>
+    html_body += f"""        <li style="margin: 20px 0; padding: 20px; background-color: #2e2e2e; border: 2px solid #444444; border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); text-align: left;">
+            <strong style="font-size: 1.5em; display: block; margin-bottom: 10px; color: #ffd700;"><a href="{url}" target="_blank" style="color: #ffd700; text-decoration: none;"><u>{headline}</u></a></strong>
+            <p style="margin-top: 10px; font-size: 1em; color: #dcdcdc;">{desc}</p>
         </li>
 """
 
 html_body += """
     </ul>
-    <p>Thank you for subscribing to our newsletter. Stay tuned for more updates!</p>
-    <p>To unsubscribe from our newsletter, please click <a href="http://news.hudica.info/unsubscribe">here</a>.</p>
+    <p style="font-size: 1.2em; color: #dcdcdc; margin-bottom: 20px;">
+        Thank you for subscribing to our newsletter. Stay tuned for more updates!
+    </p>
+    <p style="font-size: 1.2em; color: #dcdcdc; margin-bottom: 20px;">
+        To contact the newsletter with any questions or concerns, please reach out at <a href="mailto:brightside-news@hudica.info" style="color: #ffd700; text-decoration: none;"> this email</a>.
+    </p>
+    <p style="font-size: 1.2em; color: #dcdcdc; margin-bottom: 20px;">
+        To unsubscribe from our newsletter, please click <a href="http://news.hudica.info/unsubscribe" style="color: #ffd700; text-decoration: none;">here</a>.
+    </p>
 </body>
 </html>
 """

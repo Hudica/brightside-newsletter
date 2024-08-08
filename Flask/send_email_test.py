@@ -10,7 +10,7 @@ csv_file_path = './headline_data/used_headlines.csv'
 df = pd.read_csv(csv_file_path)
 
 headlines = df['Headline'].tail(4).tolist()
-urls = df['URL'].tail(3).tolist()
+urls = df['URL'].tail(4).tolist()
 description = df['Description'].tail(4).tolist()
 
 load_dotenv()
@@ -37,7 +37,7 @@ def send_email(recipients):
             response = ses.send_email(
                 Source='BrightSide Newsletter <brightside-news@hudica.info>',
                 Destination={
-                    'ToAddresses': ['hudson@kass.net']
+                    'ToAddresses': ['kass.h@northeastern.edu']
                 },
                 Message={
                     'Subject': {
@@ -140,7 +140,7 @@ html_body = f"""
 <body style="background-color: #1e1e1e; background: linear-gradient(to right, #3a3a3a, #1e1e1e); color: #f0f0f0; text-align: center; box-sizing: border-box;">
     <h1 style="color: #ffd700; margin-bottom: 20px; font-size: 2.5em;">Welcome to The Brightside Newsletter!</h1>
     <p style="font-size: 1.2em; color: #dcdcdc; margin-bottom: 20px;">
-        Here are the latest updates from positive news worldwide, delivered straight to your inbox:
+        Here are the latest updates from positive news worldwide, delivered straight to your inbox. These articles were marked as the most positive by the custom AI model.
     </p>
     <ul style="list-style-type: none; padding: 0; max-width: 90%; margin: 0 auto;">
 """
