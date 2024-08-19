@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 # Load the sentiment analysis pipeline with your saved model
 sentiment_pipeline = pipeline("text-classification", model='./saved_model', tokenizer='./saved_model')
 
-# List of example headlines for sentiment analysis with corresponding labels
 headlines = [
     # Positive Headlines
 ("Major Tech Firm Announces Breakthrough in Renewable Energy", 2),
