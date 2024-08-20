@@ -1,7 +1,13 @@
 import feedparser
 import pandas as pd
+from urllib.parse import urlparse
 
 csv_path = './headline_data/headlines.csv'
+
+def get_domain_name(url):
+    parsed_url = urlparse(url)
+    domain = parsed_url.netloc[4:]
+    return f"{domain}"
 
 # Function to fetch and parse headlines from an RSS feed
 def fetch_headlines_from_rss(url):
@@ -12,9 +18,9 @@ def fetch_headlines_from_rss(url):
             headline_text = entry.title
             headline_url = entry.link
             headline_desc = entry.description
-            # Some feeds include a thumbnail, accessed differently depending on the feed
+            domain_name = get_domain_name(headline_url)  # Extract domain name from the URL
             thumbnail = entry.media_thumbnail[0]['url'] if 'media_thumbnail' in entry else 'No Thumbnail'
-            articles.append({'Headline': headline_text, 'URL': headline_url, 'Thumbnail': thumbnail, 'Description': headline_desc})
+            articles.append({'Headline': headline_text, 'URL': headline_url, 'Domain': domain_name, 'Thumbnail': thumbnail, 'Description': headline_desc})
         return articles
     except Exception as e:
         print(f"Error fetching {url}: {e}")

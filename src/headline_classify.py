@@ -62,7 +62,7 @@ def classify_headlines():
 
     with open(used_headlines_file, 'a', encoding='utf-8', newline='') as file:
         for row in new_top_4_positive_headlines:
-            file.write(f"\"{escape_quotes(row['Headline'])}\",\"{row['URL']}\",\"{escape_quotes(row['Description'])}\"\n")
+            file.write(f"\"{escape_quotes(row['Headline'])}\",\"{row['URL']}\",\"{escape_quotes(row['Description'])}\",\"{escape_quotes(row['Domain'])}\"\n")
 
     print(f"New Top 4 Positive Headlines: {[row['Headline'] for row in new_top_4_positive_headlines]}")
 

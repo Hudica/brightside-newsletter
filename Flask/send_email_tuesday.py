@@ -60,7 +60,7 @@ def send_email(html_body, recipients):
     data = {
         'FromEmail': "brightside-news@hudica.info",
         'FromName': "Brightside Newsletter",
-        'Recipients': singleRecipient,
+        'Recipients': recipients,
         'Subject': "Brightside News Tuesday Edition!",
         'Text-part': "Your email flight plan!",
         'Html-part': html_body
@@ -74,9 +74,8 @@ def send_email(html_body, recipients):
         print("Failed to decode JSON from response")
         print("Raw response:", result.text) 
 
-singleRecipient = [{'Email': 'hudson@kass.net'}]
 
 # Main execution
 recipients = fetch_recipients()
 html_body = generate_html_body(headlines, urls, description)
-send_email(html_body, singleRecipient)
+send_email(html_body, recipients)
