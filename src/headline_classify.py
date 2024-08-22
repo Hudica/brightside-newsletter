@@ -10,7 +10,7 @@ def escape_quotes(text):
 
 # Function to load and classify headlines
 def classify_headlines():
-    # Load the CSV file containing the headlines and URLss
+    # Load the CSV file containing the headlines and URLs
     csv_file = csv_path + 'headlines.csv'
     headlines_df = pd.read_csv(csv_file, encoding='utf-8')
 
@@ -26,10 +26,10 @@ def classify_headlines():
     sentiment_pipeline = pipeline("text-classification", model=model, tokenizer=tokenizer)
 
     # Ensure the headlines are in the correct format (list of strings)
-    headlines_list = headlines_df['Headline'] + ' ' + headlines_df['Description'].astype(str).tolist()
+    headlines_list = (headlines_df['Headline'] + ' ' + headlines_df['Description']).astype(str).tolist()
 
     # Classify each headline individually and collect the results
-    results = [sentiment_pipeline(headline)[0] for headline in headlines_list]
+    results = sentiment_pipeline(headlines_list, truncation=True, max_length=128)
 
     # Add the results to the DataFrame
     headlines_df['label'] = [result['label'] for result in results]

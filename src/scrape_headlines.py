@@ -30,7 +30,6 @@ def fetch_headlines_from_rss(url):
 rss_urls = [
     'http://rss.cnn.com/rss/cnn_latest.rss',
     'https://feeds.bbci.co.uk/news/science_and_environment/rss.xml',
-    'https://www.reuters.com/rssFeed/technology/',
     'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114',
     'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19854910',
     'https://feeds.bbci.co.uk/news/technology/rss.xml',
@@ -38,14 +37,19 @@ rss_urls = [
     'https://feeds.bbci.co.uk/news/education/rss.xml',
     'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=44877279',
     'http://rss.cnn.com/rss/cnn_latest.rss/',
-    
+    'https://feeds.npr.org/1001/rss.xml',
+    'https://news.ycombinator.com/rss',
+    'https://techcrunch.com/feed/',
+    'http://feeds.reuters.com/Reuters/domesticNews',
+    'https://www.environmental-expert.com/rss/news-8/health-safety',
+    'https://feeds.finance.yahoo.com/rss/2.0/headline?s=msft&region=US&lang=en-US',
 ]
 
 # Fetch headlines from each RSS feed
 all_headlines = []
 for url in rss_urls:
     headlines = fetch_headlines_from_rss(url)
-    print(f"Headlines from {url}: {headlines}")  # Debugging line
+    print(f"{headlines}")  # Debugging line
     all_headlines.extend(headlines)
 
 # Check if headlines were fetched
