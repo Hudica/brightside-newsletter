@@ -38,25 +38,23 @@ def classify_headlines():
     # Filter for positive sentiments and sort by confidence
     positive_headlines = headlines_df[headlines_df['label'] == 'POS'].sort_values(by='score', ascending=False)
 
-    # File to store used headlines
-    used_headlines_file = csv_path + 'used_headlines.csv'
-
-    # Read existing headlines from the used_headlines.csv file
-    if os.path.exists(used_headlines_file):
-        used_headlines_df = pd.read_csv(used_headlines_file, encoding='utf-8')
-        existing_headlines = set(used_headlines_df['Headline'].apply(escape_quotes))
-    else:
-        existing_headlines = set()
-        pd.DataFrame(columns=['Headline', 'URL', 'Description']).to_csv(used_headlines_file, index=False, encoding='utf-8')
+    # Domain count limit
+    domain_count = {}
 
     new_top_4_positive_headlines = []
-
-    # Iterate through the positive headlines to find the top 4 new ones
     for _, row in positive_headlines.iterrows():
         clean_headline = escape_quotes(row['Headline'])
-        if clean_headline not in existing_headlines:
-            new_top_4_positive_headlines.append(row)
-            existing_headlines.add(clean_headline)
+        domain = row['Domain']
+
+        if domain not in domain_count:
+            domain_count[domain] = 0
+
+        if domain_count[domain] < 1:
+            if clean_headline not in existing_headlines:
+                new_top_4_positive_headlines.append(row)
+                existing_headlines.add(clean_headline)
+                domain_count[domain] += 1
+
             if len(new_top_4_positive_headlines) == 4:
                 break
 
@@ -65,5 +63,14 @@ def classify_headlines():
             file.write(f"\"{escape_quotes(row['Headline'])}\",\"{row['URL']}\",\"{escape_quotes(row['Description'])}\",\"{escape_quotes(row['Domain'])}\"\n")
 
     print(f"New Top 4 Positive Headlines: {[row['Headline'] for row in new_top_4_positive_headlines]}")
+
+# Existing headlines and used headlines file check
+used_headlines_file = csv_path + 'used_headlines.csv'
+if os.path.exists(used_headlines_file):
+    used_headlines_df = pd.read_csv(used_headlines_file, encoding='utf-8')
+    existing_headlines = set(used_headlines_df['Headline'].apply(escape_quotes))
+else:
+    existing_headlines = set()
+    pd.DataFrame(columns=['Headline', 'URL', 'Description', 'Domain']).to_csv(used_headlines_file, index=False, encoding='utf-8')
 
 classify_headlines()

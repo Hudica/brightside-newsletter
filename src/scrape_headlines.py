@@ -38,11 +38,12 @@ rss_urls = [
     'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=44877279',
     'http://rss.cnn.com/rss/cnn_latest.rss/',
     'https://feeds.npr.org/1001/rss.xml',
-    'https://news.ycombinator.com/rss',
-    'https://techcrunch.com/feed/',
     'http://feeds.reuters.com/Reuters/domesticNews',
     'https://www.environmental-expert.com/rss/news-8/health-safety',
     'https://feeds.finance.yahoo.com/rss/2.0/headline?s=msft&region=US&lang=en-US',
+    'https://www.sciencedaily.com/rss/top/technology.xml',
+    'https://www.sciencedaily.com/rss/top/environment.xml',
+    'https://www.sciencedaily.com/rss/top/society.xml',
 ]
 
 # Fetch headlines from each RSS feed
