@@ -31,7 +31,10 @@ def generate_html_body(headlines, urls, description, domains):
     html_body = f"""
     <html>
     <body style="font-family: 'Helvetica', 'Arial', sans-serif; margin: 0; padding: 20px; text-align: center; background-color: #FFFFFF; color: #000000;">
-        <h1 style="color: #DAA520; margin-bottom: 30px; font-size: 2.75em; border-bottom: 3px solid #DAA520;">The Brightside Newsletter</h1>
+        <h1 style="color: #DAA520; margin-bottom: 30px; font-size: 2.75em; border-bottom: 3px solid #DAA520;">
+            <a href="http://news.hudica.info" target="_blank" style="color: #DAA520; text-decoration: none;">The Brightside Newsletter</a>
+        </h1>
+
 
         <!-- Mission Statement Section -->
         <section style="padding: 20px; background-color: #FFFFFF; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); margin-bottom: 20px;">
@@ -54,18 +57,26 @@ def generate_html_body(headlines, urls, description, domains):
             <div style="background-color: #FFFFFF; padding: 15px; margin-bottom: 15px; border-left: 5px solid #DAA520; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
                 <a href="{url}" target="_blank" style="color: #3366CC; text-decoration: none; font-size: 1.6em;"><strong>{headline}</strong></a>
                 <p style="font-size: 1.2em; color: #444444; margin-top: 10px;">{desc}</p>
-                <p style="font-size: 1em; color: #666666; margin-top: 5px;">(Credit: {domain})</p>
+                <p style="font-size: 1em; color: #666666; margin-top: 5px;">(Credit: <a href="{url}" target="_blank" style="color: #3366CC; text-decoration: none;">{domain}</a>)</p>
             </div>
         """
     html_body += f"""
         </section>
 
         <!-- Footer Section -->
-        <footer style="padding: 20px; background-color: #D3D3D3; text-align: center; color: #696969; font-size: 0.9em; border-top: 1px solid #CCCCCC;">
-            <p>Thank you for subscribing to The Brightside Newsletter. Stay tuned for more updates and positivity!</p>
-            <p>Questions or feedback? Reach out <a href="mailto:brightside-news@hudica.info" style="color: #3366CC;">here</a>.</p>
-            <p>Want to unsubscribe? <a href="https://news.hudica.info/unsubscribe" style="color: #3366CC; text-decoration: none;">Click here</a>.</p>
+        <!-- Footer Section -->
+        <footer style="padding: 30px; background-color: #F3F3F3; text-align: center; color: #333333; font-size: 1em; border-top: 2px solid #CCCCCC;">
+            <p style="margin-bottom: 15px;">Thank you for subscribing to The Brightside Newsletter. Stay tuned for more updates and positivity!</p>
+            <p style="margin-bottom: 15px;">Did you find this email enjoyable? Forward it to a friend!</p>
+            <p style="margin-bottom: 10px;">Was this email forwarded to you? Subscribe <a href="https://news.hudica.info" style="color: #3366CC; text-decoration: none;">here</a>.</p>
+            
+            <!-- Separator Line -->
+            <hr style="border: 0; height: 1px; background-color: #CCCCCC; margin-bottom: 20px;">
+
+            <p style="margin-bottom: 20px; font-size: 0.9em;">Questions or feedback? Reach out <a href="mailto:brightside-news@hudica.info" style="color: #3366CC; text-decoration: none;">here</a>.</p>
+            <p style="font-size: 0.8em; color: #666666;">Want to unsubscribe? <a href="https://news.hudica.info/unsubscribe" style="color: #3366CC; text-decoration: none;">Click here</a>.</p>
         </footer>
+
     </body>
     </html>
     """
@@ -77,7 +88,7 @@ def send_email(html_body, recipients):
         'FromEmail': "brightside-news@hudica.info",
         'FromName': "Brightside Newsletter",
         'Recipients': singleRecipient,
-        'Subject': "Brightside News Tuesday Edition!",
+        'Subject': "Brightside News Tuesday",
         'Text-part': "Your email flight plan!",
         'Html-part': html_body
     }
@@ -90,7 +101,7 @@ def send_email(html_body, recipients):
         print("Failed to decode JSON from response")
         print("Raw response:", result.text) 
 
-singleRecipient = [{'Email': 'hudsonkass20@gmail.com'}]
+singleRecipient = [{'Email': 'hudson@kass.net'}]
 
 # Main execution
 recipients = fetch_recipients()
