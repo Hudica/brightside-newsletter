@@ -27,51 +27,49 @@ def fetch_recipients():
     emails = [{'Email': doc['email']} for doc in subscribers_collection.find({}, {"_id": 0, "email": 1})]
     return emails
 def generate_html_body(headlines, urls, description, domains):
-    background_url = "https://images.unsplash.com/photo-1548614229-c1fe21dfab63?q=80&w=2565&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90oy1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    fallback_color = "#242124"  # Dark grey
-
+    # HTML body of the email with creative and enhanced visual elements
     html_body = f"""
     <html>
-    <body style="font-family: 'Helvetica', 'Arial', sans-serif; margin: 0; padding: 20px; text-align: center; background-color: {fallback_color}; background-image: url('{background_url}'); background-size: cover; background-position: center;">
-        <!--[if gte mso 9]>
-        <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
-            <v:fill type="tile" src="{background_url}" color="{fallback_color}"/>
-        </v:background>
-        <![endif]-->
-        <h1 style="color: #fcc200; margin-bottom: 20px; font-size: 2.75em;">The Brightside Newsletter!</h1>
-        <p style="color: #a9a9a9; font-size: 1.4em; margin-bottom: 20px;">We provide the latest updates from positive and interesting news worldwide, delivered straight to your inbox. These articles were classified to be positive by our custom AI model.</p>
-        <table style="width: 100%; max-width: 600px; margin: 0 auto; background-color: rgba(0, 0, 0, 0.8); box-shadow: 0px 0px 10px rgba(0,0,0,0.3);">
+    <body style="font-family: 'Helvetica', 'Arial', sans-serif; margin: 0; padding: 20px; text-align: center; background-color: #FFFFFF; color: #000000;">
+        <h1 style="color: #DAA520; margin-bottom: 30px; font-size: 2.75em; border-bottom: 3px solid #DAA520;">The Brightside Newsletter</h1>
+
+        <!-- Mission Statement Section -->
+        <section style="padding: 20px; background-color: #FFFFFF; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); margin-bottom: 20px;">
+            <h2 style="color: #333333; font-size: 1.5em; margin-bottom: 10px;"><u>Our Mission</u></h2>
+            <p style="font-size: 1.2em; color: #333333;">In a world often overshadowed by negative news, my mission is to shine a light on the good. We scan the web for stories of hope, progress, and unity, bringing you a curated selection of positive news that inspires and uplifts. This newsletter is completely free and only exists to make people smile!</p>
+        </section>
+
+        <!-- How It Works Section -->
+        <section style="padding: 20px; background-color: #F4F4F4; margin-bottom: 20px;">
+            <h2 style="color: #333333; font-size: 1.5em; margin-bottom: 10px;"><u>How It Works</u></h2>
+            <p style="font-size: 1.2em; color: #333333;">This newsletter uses a complex sentiment analysis model to identify the most positive and interesting headlines from established news outlets. This allows me to present you with news that not only informs but also contributes to a more optimistic worldview.</p>
+        </section>
+
+        <!-- Featured Headlines -->
+        <section style="padding: 20px; background-color: #E8E8E8; margin-bottom: 20px;">
+            <h2 style="color: #333333; font-size: 1.5em; border-bottom: 1px dashed #B8860B; margin-bottom: 20px;">Featured Headlines</h2>
     """
     for headline, url, desc, domain in zip(headlines, urls, description, domains):
         html_body += f"""
-            <tr>
-                <td style="background-color: #fffafa; border: 1px solid #dcdcdc; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                    <a href="{url}" target="_blank" style="color: #3366cc; text-decoration: none; font-size: 1.5em;">{headline}</a>
-                    <p style="font-size: 1em; color: #444444; margin-top: 10px;">{desc}</p>
-                    <p style="font-size: 1em; color: #666666; margin-top: 5px;">(Credit: {domain})</p>
-                </td>
-            </tr>
+            <div style="background-color: #FFFFFF; padding: 15px; margin-bottom: 15px; border-left: 5px solid #DAA520; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                <a href="{url}" target="_blank" style="color: #3366CC; text-decoration: none; font-size: 1.6em;"><strong>{headline}</strong></a>
+                <p style="font-size: 1.2em; color: #444444; margin-top: 10px;">{desc}</p>
+                <p style="font-size: 1em; color: #666666; margin-top: 5px;">(Credit: {domain})</p>
+            </div>
         """
     html_body += f"""
-        </table>
-        <p style="color: #696969; font-size: 1.2em;">Thank you for subscribing to our newsletter. Stay tuned for more updates!</p>
-        <p style="color: #696969; font-size: 1.2em;">To contact the newsletter with any questions or concerns, please reach out <a href="mailto:brightside-news@hudica.info" style="color: #3366cc;">here</a>.</p>
-        <div style="color: #696969; text-align: center; padding: 20px; font-size: 0.9em; border-top: 1px solid #444;">
-            <p>To unsubscribe from our newsletter, please <a href="https://news.hudica.info/unsubscribe" style="color: #3366cc; text-decoration: none;">click here</a>.</p>
-        </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer style="padding: 20px; background-color: #D3D3D3; text-align: center; color: #696969; font-size: 0.9em; border-top: 1px solid #CCCCCC;">
+            <p>Thank you for subscribing to The Brightside Newsletter. Stay tuned for more updates and positivity!</p>
+            <p>Questions or feedback? Reach out <a href="mailto:brightside-news@hudica.info" style="color: #3366CC;">here</a>.</p>
+            <p>Want to unsubscribe? <a href="https://news.hudica.info/unsubscribe" style="color: #3366CC; text-decoration: none;">Click here</a>.</p>
+        </footer>
     </body>
     </html>
     """
     return html_body
-
-
-
-
-
-
-
-
-
 
 
 def send_email(html_body, recipients):
@@ -92,7 +90,7 @@ def send_email(html_body, recipients):
         print("Failed to decode JSON from response")
         print("Raw response:", result.text) 
 
-singleRecipient = [{'Email': 'hudson@kass.net'}]
+singleRecipient = [{'Email': 'hudsonkass20@gmail.com'}]
 
 # Main execution
 recipients = fetch_recipients()
