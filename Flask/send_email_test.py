@@ -101,7 +101,7 @@ def send_email(html_body, recipients):
         print("Failed to decode JSON from response")
         print("Raw response:", result.text) 
 
-singleRecipient = [{'Email': 'hudson@kass.net'}]
+singleRecipient = [{'Email': 'lutownes2011@gmail.com'}]
 
 # Main execution
 recipients = fetch_recipients()

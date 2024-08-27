@@ -89,7 +89,7 @@ def send_email(html_body, recipients):
         'FromEmail': "brightside-news@hudica.info",
         'FromName': "Brightside Newsletter",
         'Recipients': recipients,
-        'Subject': "Brightside News Thursday Edition!",
+        'Subject': "Brightside News, Thursday Edition!",
         'Text-part': "Your email flight plan!",
         'Html-part': html_body
     }

@@ -49,7 +49,7 @@ def classify_headlines():
         if domain not in domain_count:
             domain_count[domain] = 0
 
-        if domain_count[domain] < 2:
+        if domain_count[domain] < 1:
             if clean_headline not in existing_headlines:
                 new_top_4_positive_headlines.append(row)
                 existing_headlines.add(clean_headline)
