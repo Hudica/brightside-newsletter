@@ -38,6 +38,16 @@ def classify_headlines():
     # Filter for positive sentiments and sort by confidence
     positive_headlines = headlines_df[headlines_df['label'] == 'POS'].sort_values(by='score', ascending=False)
 
+    # Calculate the positivity score
+    positive_count = headlines_df[headlines_df['label'] == 'POS'].shape[0]
+    non_positive_count = headlines_df[headlines_df['label'] != 'POS'].shape[0]
+
+    if non_positive_count == 0:
+        print("No negative or neutral headlines available for comparison.")
+    else:
+        positivity_score = positive_count / non_positive_count
+        print(f"Positivity Score: {positivity_score:.2f}")
+
     # Domain count limit
     domain_count = {}
 
@@ -60,9 +70,10 @@ def classify_headlines():
 
     with open(used_headlines_file, 'a', encoding='utf-8', newline='') as file:
         for row in new_top_4_positive_headlines:
-            file.write(f"\"{escape_quotes(row['Headline'])}\",\"{row['URL']}\",\"{escape_quotes(row['Description'])}\",\"{escape_quotes(row['Domain'])}\"\n")
+            file.write(f"\"{escape_quotes(row['Headline'])}\",\"{row['URL']}\",\"{escape_quotes(row['Description'])}\",\"{escape_quotes(row['Domain'])}\",\"{positivity_score:.2f}\"\n")
 
     print(f"New Top 4 Positive Headlines: {[row['Headline'] for row in new_top_4_positive_headlines]}")
+
 
 # Existing headlines and used headlines file check
 used_headlines_file = csv_path + 'used_headlines.csv'
@@ -71,6 +82,7 @@ if os.path.exists(used_headlines_file):
     existing_headlines = set(used_headlines_df['Headline'].apply(escape_quotes))
 else:
     existing_headlines = set()
-    pd.DataFrame(columns=['Headline', 'URL', 'Description', 'Domain']).to_csv(used_headlines_file, index=False, encoding='utf-8')
+    pd.DataFrame(columns=['Headline', 'URL', 'Description', 'Domain', 'Score']).to_csv(used_headlines_file, index=False, encoding='utf-8')
+
 
 classify_headlines()

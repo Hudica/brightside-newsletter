@@ -16,12 +16,37 @@ headlines = df['Headline'].tail(4).tolist()
 urls = df['URL'].tail(4).tolist()
 description = df['Description'].tail(4).tolist()
 domains = df['Domain'].tail(4).tolist()
+score = df['Score'].tail(1).values[0] * 100
+print(score)
 
 # Set up MongoDB connection
 mongo_conn_string = os.getenv('MONGO_CONN_STRING')
 client = MongoClient(mongo_conn_string)
 db = client.BrightSideUsers
 subscribers_collection = db.emails
+
+def get_color(score):
+    if score <= 20:
+        return "#8B0000"  # Dark Red
+    elif score <= 23:
+        return "#B22222"  # Firebrick
+    elif score <= 26:
+        return "#DC143C"  # Crimson
+    elif score <= 29:
+        return "#FF4500"  # OrangeRed
+    elif score <= 32:
+        return "#FF8C00"  # DarkOrange
+    elif score <= 35:
+        return "#FFD700"  # Gold
+    elif score <= 38:
+        return "#ADFF2F"  # GreenYellow
+    elif score <= 41:
+        return "#9ACD32"  # YellowGreen
+    elif score <= 44:
+        return "#32CD32"  # LimeGreen
+    else:
+        return "#228B22"  # ForestGreen for the highest scores (45 and above)
+color = get_color(score)
 
 def fetch_recipients():
     emails = [{'Email': doc['email']} for doc in subscribers_collection.find({}, {"_id": 0, "email": 1})]
@@ -46,6 +71,12 @@ def generate_html_body(headlines, urls, description, domains):
         <section style="padding: 20px; background-color: #F4F4F4; margin-bottom: 20px;">
             <h2 style="color: #333333; font-size: 1.5em; margin-bottom: 10px;"><u>How It Works</u></h2>
             <p style="font-size: 1.2em; color: #333333;">This newsletter uses a complex sentiment analysis model to identify the most positive and interesting headlines from established news outlets. This allows me to present you with news that not only informs but also contributes to a more optimistic worldview.</p>
+        </section>
+
+        <!-- Positivity Score -->
+        <section style="padding: 20px; background-color: #F4F4F4; margin-bottom: 20px;">
+            <h2 style="color: #333333; font-size: 2em; margin-bottom: 5px;"><u>Positivity Score</u></h2>
+            <p style="font-size: 4em; color: {color};">{score}%</p>
         </section>
 
         <!-- Featured Headlines -->
@@ -101,7 +132,7 @@ def send_email(html_body, recipients):
         print("Failed to decode JSON from response")
         print("Raw response:", result.text) 
 
-singleRecipient = [{'Email': 'jenkass@hotmail.com'}]
+singleRecipient = [{'Email': 'hudson@kass.net'}]
 
 # Main execution
 recipients = fetch_recipients()
