@@ -26,24 +26,26 @@ def privacy():
 
 @app.route('/subscribe', methods=['POST'])
 def add_subscriber():
-    email = request.form.get('email')
-    if not email:
-        return "No email provided, please enter an email.", 400
-    
-    normalized_email = email.lower() 
-    
-    if subscribers.find_one({"email": normalized_email}):
-        return "Email already subscribed. Please use another email.", 409
-    
-    if verify_email(email):
-        try:
+    try:
+        email = request.form.get('email')
+        if not email:
+            return "No email provided, please enter an email.", 400
+
+        normalized_email = email.lower()
+
+        if subscribers.find_one({"email": normalized_email}):
+            return "Email already subscribed. Please use another email.", 409
+
+        if verify_email(email):
             subscribers.insert_one({"email": normalized_email})
             return "Subscription successful!", 200
-        except Exception as e:
-            print(str(e))
-            return "Error processing your subscription.", 500
-    else:
-        return "Please provide a different email address.", 400
+        else:
+            return "Please provide a valid email address.", 400
+
+    except Exception as e:
+        print(f"Internal Server Error: {e}")
+        return "Internal Server Error", 500
+
 
 @app.route('/unsubscribeAction', methods=['POST'])
 def unsubscribeAction():
