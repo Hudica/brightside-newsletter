@@ -37,14 +37,19 @@ def add_subscriber():
             return "Email already subscribed. Please use another email.", 409
 
         if verify_email(email):
-            subscribers.insert_one({"email": normalized_email})
-            return "Subscription successful!", 200
+            try:
+                subscribers.insert_one({"email": normalized_email})
+                return "Subscription successful!", 200
+            except Exception as db_error:
+                print(f"Database Insertion Error: {db_error}")
+                return "Internal Server Error", 500
         else:
             return "Please provide a valid email address.", 400
 
     except Exception as e:
         print(f"Internal Server Error: {e}")
         return "Internal Server Error", 500
+
 
 
 @app.route('/unsubscribeAction', methods=['POST'])
