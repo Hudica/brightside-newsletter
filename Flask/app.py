@@ -35,8 +35,7 @@ def add_subscriber():
     if subscribers.find_one({"email": normalized_email}):
         return "Email already subscribed. Please use another email.", 409
     
-    verification_result = verify_email(email)
-    if verification_result and verification_result['data']['status'] == 'valid':
+    if verify_email(email):
         try:
             subscribers.insert_one({"email": normalized_email})
             return "Subscription successful!", 200
@@ -44,7 +43,7 @@ def add_subscriber():
             print(str(e))
             return "Error processing your subscription.", 500
     else:
-        return "Please provide a valid email address.", 400
+        return "Please provide a different email address.", 400
 
 @app.route('/unsubscribeAction', methods=['POST'])
 def unsubscribeAction():

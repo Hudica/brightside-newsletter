@@ -110,6 +110,31 @@
             animation: fadeIn 1.5s ease-in-out;
         }
 
+        .disclaimer {
+            font-size: 0.9rem;
+            color: #ffd700;
+            margin-top: 20px;
+            max-width: 600px;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: 5vh;
+            padding: 1vh 0;
+            background-color: #1e1e1e;
+            width: 100%;
+            text-align: center;
+            color: #dcdcdc;
+            box-sizing: border-box;
+        }
+
+        .footer-links a {
+            color: #ffd700;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+
         @media (max-width: 600px) {
             h1 {
                 font-size: 6vw;
@@ -133,6 +158,11 @@
             #message {
                 font-size: 4vw;
             }
+
+            .disclaimer {
+                font-size: 3vw;
+            }
+
         }
 
         @keyframes fadeIn {
@@ -179,11 +209,16 @@
             <button type="submit">Subscribe Now</button>
         </form>
         <div id="message"></div>
+        <div class="disclaimer">
+            <p>Note: We have noticed that some email addresses are having difficulty being verified. If you encounter any issues, please reach out with your email, and we will assist you.</p>
+        </div>
     </div>
-    <footer style="margin-top: 5vh; padding: 1vh 0; background-color: linear-gradient(to right, #3a3a3a, #1e1e1e); width: 100%; text-align: center; color: #dcdcdc;">
-        <p style="margin: 1;">&copy; 2024 The Brightside Newsletter</p>
-        <p style="margin: 1;"><a href="https://news.hudica.info/privacy" style="color: #ffd700; text-decoration: none;">Privacy Policy</a></p>
+    <footer>
+        <p>&copy; 2024 The Brightside Newsletter</p>
+        <div class="footer-links">
+            <a href="https://news.hudica.info/privacy">Privacy Policy</a>
+            <a href="mailto:brightside-news@outlook.com">Contact</a>
+        </div>
     </footer>
-    
 </body>
 </html>
