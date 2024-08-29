@@ -110,6 +110,7 @@ def generate_html_body(headlines, urls, description, domains):
 
             <p style="margin-bottom: 20px; font-size: 0.9em;">Questions or feedback? Reach out <a href="mailto:brightside-news@hudica.info" style="color: #3366CC; text-decoration: none;">here</a>.</p>
             <p style="font-size: 0.8em; color: #666666;">Want to unsubscribe? <a href="https://news.hudica.info/unsubscribe" style="color: #3366CC; text-decoration: none;">Click here</a>.</p>
+            <p style="font-size: 0.8em; color: #666666;">For information about our privacy practices, see our <a href="https://news.hudica.info/unsubscribe" style="color: #3366CC; text-decoration: none;">Privacy Statement.</a>.</p>
         </footer>
 
     </body>
