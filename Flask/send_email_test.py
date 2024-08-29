@@ -26,26 +26,26 @@ db = client.BrightSideUsers
 subscribers_collection = db.emails
 
 def get_color(score):
-    if score <= 20:
+    if score <= 15:
         return "#8B0000"  # Dark Red
-    elif score <= 23:
+    elif score <= 18:
         return "#B22222"  # Firebrick
-    elif score <= 26:
+    elif score <= 21:
         return "#DC143C"  # Crimson
-    elif score <= 29:
+    elif score <= 24:
         return "#FF4500"  # OrangeRed
-    elif score <= 32:
+    elif score <= 27:
         return "#FF8C00"  # DarkOrange
-    elif score <= 35:
+    elif score <= 30:
         return "#FFD700"  # Gold
-    elif score <= 38:
+    elif score <= 33:
         return "#ADFF2F"  # GreenYellow
-    elif score <= 41:
+    elif score <= 36:
         return "#9ACD32"  # YellowGreen
-    elif score <= 44:
+    elif score <= 39:
         return "#32CD32"  # LimeGreen
     else:
-        return "#228B22"  # ForestGreen for the highest scores (45 and above)
+        return "#228B22"  # ForestGreen for the highest scores (42 and above)
 color = get_color(score)
 
 def fetch_recipients():
@@ -55,7 +55,7 @@ def generate_html_body(headlines, urls, description, domains):
     # HTML body of the email with creative and enhanced visual elements
     html_body = f"""
     <html>
-    <body style="font-family: 'Helvetica', 'Arial', sans-serif; margin: 0; padding: 20px; text-align: center; background-color: #FFFFFF; color: #000000;">
+    <body style="font-family: 'Helvetica', 'Arial', sans-serif; margin: 0; padding: 20px; text-align: center;">
         <h1 style="color: #DAA520; margin-bottom: 30px; font-size: 2.75em; border-bottom: 3px solid #DAA520;">
             <a href="http://news.hudica.info" target="_blank" style="color: #DAA520; text-decoration: none;">The Brightside Newsletter</a>
         </h1>
@@ -64,21 +64,26 @@ def generate_html_body(headlines, urls, description, domains):
         <!-- Mission Statement Section -->
         <section style="padding: 20px; background-color: #FFFFFF; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); margin-bottom: 20px;">
             <h2 style="color: #333333; font-size: 1.5em; margin-bottom: 10px;"><u>Our Mission</u></h2>
-            <p style="font-size: 1.2em; color: #333333;">In a world often overshadowed by negative news, my mission is to shine a light on the good. We scan the web for stories of hope, progress, and unity, bringing you a curated selection of positive news that inspires and uplifts. This newsletter is completely free and only exists to make people smile!</p>
+            <p style="font-size: 1.2em; color: #333333;">In a world often overshadowed by negative news, our mission is to shine a light on the good. We scan the web for stories of hope, progress, and unity, bringing you a curated selection of positive news that inspires and uplifts. This newsletter is completely free and only exists to make people smile!</p>
         </section>
 
         <!-- How It Works Section -->
         <section style="padding: 20px; background-color: #F4F4F4; margin-bottom: 20px;">
             <h2 style="color: #333333; font-size: 1.5em; margin-bottom: 10px;"><u>How It Works</u></h2>
-            <p style="font-size: 1.2em; color: #333333;">This newsletter uses a complex sentiment analysis model to identify the most positive and interesting headlines from established news outlets. This allows me to present you with news that not only informs but also contributes to a more optimistic worldview.</p>
+            <p style="font-size: 1.2em; color: #333333;">This newsletter uses a complex sentiment analysis model to identify the most positive and interesting headlines from established news outlets. This allows us to present you with news that not only informs but also contributes to a more optimistic worldview.</p>
         </section>
 
         <!-- Positivity Score -->
-        <section style="padding: 20px; background-color: #F4F4F4; margin-bottom: 20px;">
-            <h2 style="color: #333333; font-size: 2em; margin-bottom: 5px;"><u>Positivity Score</u></h2>
-            <p style="font-size: 4em; color: {color}; margin-bottom: 0;">{score}%</p>
+        <section style="padding: 10px; margin-bottom: 10px;">
+            <h2 style="color: #333333; font-size: 2em; margin-bottom: 4px;"><u>Positivity Score</u></h2>
+            <p style="font-size: 4em; color: {color}; margin-top: 0px; margin-bottom: 2px;">{score}%</p>
+            <p style="font-size: 0.8em; margin-top: 0px; margin-bottom: 4px;">
+                This score represents the percentage of positive headlines out of the total headlines analyzed.
+            </p>
             <p><a href="https://news.hudica.info/score" style="color: #275af4; font-size: 0.8em; text-decoration: none;">How it's calculated</a></p>
         </section>
+
+
 
         <!-- Featured Headlines -->
         <section style="padding: 20px; background-color: #E8E8E8; margin-bottom: 20px;">
@@ -133,7 +138,7 @@ def send_email(html_body, recipients):
         print("Failed to decode JSON from response")
         print("Raw response:", result.text) 
 
-singleRecipient = [{'Email': 'hudson@kass.net'}]
+singleRecipient = [{'Email': 'hudsonkass20@gmail.com'}]
 
 # Main execution
 recipients = fetch_recipients()
