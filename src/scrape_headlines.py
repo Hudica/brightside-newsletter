@@ -44,6 +44,19 @@ rss_urls = [
     'https://www.sciencedaily.com/rss/top/technology.xml',
     'https://www.sciencedaily.com/rss/top/environment.xml',
     'https://www.sciencedaily.com/rss/top/society.xml',
+    'https://www.cbsnews.com/latest/rss/main',
+    'https://www.cbsnews.com/latest/rss/technology',
+    'https://www.cbsnews.com/latest/rss/politics',
+    'https://www.cbsnews.com/latest/rss/world',
+    'https://www.cbsnews.com/latest/rss/space',
+    'https://www.wired.com/feed/tag/ai/latest/rss',
+    'https://www.wired.com/feed/tag/ai/latest/rss',
+    'https://www.wired.com/feed/category/culture/latest/rss',
+    'https://www.wired.com/feed/category/business/latest/rss',
+    'https://news.un.org/feed/subscribe/en/news/all/rss.xml',
+    'https://news.un.org/feed/subscribe/en/news/region/americas/feed/rss.xml',
+    'https://feeds.a.dj.com/rss/RSSWorldNews.xml',
+    'https://feeds.a.dj.com/rss/RSSWSJD.xml',
 ]
 
 # Fetch headlines from each RSS feed
