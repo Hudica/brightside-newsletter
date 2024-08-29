@@ -24,6 +24,10 @@ def unsubscribe():
 def privacy():
     return render_template('privacy.html')
 
+@app.route('/score')
+def positivity_score():
+    return render_template('positivity_score.html')
+
 @app.route('/subscribe', methods=['POST'])
 def add_subscriber():
     try:

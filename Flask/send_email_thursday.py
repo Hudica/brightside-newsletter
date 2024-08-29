@@ -16,7 +16,7 @@ headlines = df['Headline'].tail(4).tolist()
 urls = df['URL'].tail(4).tolist()
 description = df['Description'].tail(4).tolist()
 domains = df['Domain'].tail(4).tolist()
-score = df['Score'].tail(1).values[0]
+score = df['Score'].tail(1).values[0] * 100
 
 # Set up MongoDB connection
 mongo_conn_string = os.getenv('MONGO_CONN_STRING')
@@ -75,7 +75,8 @@ def generate_html_body(headlines, urls, description, domains):
         <!-- Positivity Score -->
         <section style="padding: 20px; background-color: #F4F4F4; margin-bottom: 20px;">
             <h2 style="color: #333333; font-size: 2em; margin-bottom: 5px;"><u>Positivity Score</u></h2>
-            <p style="font-size: 4em; color: {color};">{score}%</p>
+            <p style="font-size: 4em; color: {color}; margin-bottom: 0;">{score}%</p>
+            <p><a href="https://news.hudica.info/score" style="color: #275af4; font-size: 0.8em; text-decoration: none;">How it's calculated</a></p>
         </section>
 
         <!-- Featured Headlines -->
@@ -98,7 +99,7 @@ def generate_html_body(headlines, urls, description, domains):
         <footer style="padding: 30px; background-color: #F3F3F3; text-align: center; color: #333333; font-size: 1em; border-top: 2px solid #CCCCCC;">
             <p style="margin-bottom: 15px;">Thank you for subscribing to The Brightside Newsletter. Stay tuned for more updates and positivity!</p>
             <p style="margin-bottom: 15px;">Did you find this email enjoyable? Forward it to a friend!</p>
-            <p style="margin-bottom: 10px;">Was this email forwarded to you? Subscribe <a href="https://news.hudica.info" style="color: #3366CC; text-decoration: none;">here</a>.</p>
+            <p style="margin-bottom: 10px;">Was this email forwarded to you? Visit our home page <a href="https://news.hudica.info" style="color: #3366CC; text-decoration: none;">here</a>.</p>
             
             <!-- Separator Line -->
             <hr style="border: 0; height: 1px; background-color: #CCCCCC; margin-bottom: 20px;">

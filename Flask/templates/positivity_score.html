@@ -96,43 +96,34 @@
 <body>
     <div class="header">
         <img src="{{ url_for('static', filename='images/brightside_logo.webp') }}" alt="BrightSide Logo" class="logo">
-        <h1>Privacy Policy</h1>
+        <h1>Positivity Score</h1>
     </div>
     <div class="content">
+        <h1>How is the score calculated?</h1>
+    
+    <h2>Gathering the Content</h2>
+    <p>
+        The process begins with collecting headlines from various news sources. Using RSS feeds, we access headlines from a wide range of reputable news organizations. This diverse selection helps ensure a balanced representation of sentiments expressed in the media. Typically, this process yields approximately 900 headlines, encompassing multiple genres to mitigate positivity bias.
+    </p>
+    
+    <h2>Generating a Score</h2>
+    <p>
+        Once the headlines are compiled, each one is individually analyzed by our sentiment analysis model. The model categorizes each headline into one of three sentiments: Positive, Neutral, or Negative. To compute the overall positivity score, we calculate the ratio of positive headlines to the total number of headlines, resulting in a percentage that reflects the proportion of positive sentiments.
+    </p>
+    
+    <h2>Summary</h2>
+    <p>
+        The positivity score is calculated as follows:<br>
+        <strong>Score = (Number of Positive Headlines / Total Number of Headlines) × 100</strong><br>
+        It is the % of positive headlines out of all headlines.
+    </p>
+    <div style="text-align: center; padding: 20px; margin: auto;">
+        <h2>Contact Us</h2>
         <p>
-            At The Brightside Newsletter, we are committed to protecting your privacy. This Privacy Policy outlines how we collect, use, and protect your information.
+            If you have any questions about this score, please contact us at 
+            <a href="mailto:brightside-news@outlook.com" style="color: #ffd700; text-decoration: none; white-space: nowrap;">brightside-news@outlook.com</a>.
         </p>
-        <h2>Information We Collect</h2>
-        <p>
-            The only information we collect from you is your email address. This information is solely used to send out The Brightside Newsletter.
-        </p>
-        <h2>Use of Your Information</h2>
-        <p>
-            Your email address is used exclusively for the purpose of delivering our newsletter to you. We do not use your email for any other purpose.
-        </p>
-        <h2>Sharing of Information</h2>
-        <p>
-            We do not share your email address with any third parties for any reason. Your information is kept private and secure.
-        </p>
-        <h2>Data Security</h2>
-        <p>
-            We take the security of your personal information seriously. We implement security measures to protect your data from unauthorized access, alteration, disclosure, or destruction.
-        </p>
-        <h2>Your Consent</h2>
-        <p>
-            By subscribing to The Brightside Newsletter, you consent to the collection and use of your email address as outlined in this Privacy Policy.
-        </p>
-        <h2>Changes to Our Privacy Policy</h2>
-        <p>
-            We may update this Privacy Policy from time to time. Any changes will be posted on this page. We encourage you to review this policy periodically to stay informed about how we are protecting your information.
-        </p>
-        <div style="text-align: center; padding: 20px; margin: auto; width: 100%;">
-            <h2>Contact Us</h2>
-            <p>
-                If you have any questions about this score, please contact us at 
-                <a href="mailto:brightside-news@outlook.com" style="color: #ffd700; text-decoration: none; white-space: nowrap;">brightside-news@outlook.com</a>.
-            </p>
-        </div>
+    </div>
     </div>
     <div class="footer">
         <!-- Home button added in the header -->

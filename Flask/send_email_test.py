@@ -76,7 +76,8 @@ def generate_html_body(headlines, urls, description, domains):
         <!-- Positivity Score -->
         <section style="padding: 20px; background-color: #F4F4F4; margin-bottom: 20px;">
             <h2 style="color: #333333; font-size: 2em; margin-bottom: 5px;"><u>Positivity Score</u></h2>
-            <p style="font-size: 4em; color: {color};">{score}%</p>
+            <p style="font-size: 4em; color: {color}; margin-bottom: 0;">{score}%</p>
+            <p><a href="https://news.hudica.info/score" style="color: #275af4; font-size: 0.8em; text-decoration: none;">How it's calculated</a></p>
         </section>
 
         <!-- Featured Headlines -->

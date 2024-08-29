@@ -40,12 +40,12 @@ def classify_headlines():
 
     # Calculate the positivity score
     positive_count = headlines_df[headlines_df['label'] == 'POS'].shape[0]
-    non_positive_count = headlines_df[headlines_df['label'] != 'POS'].shape[0]
+    total_headline_count = headlines_df.shape[0]
 
-    if non_positive_count == 0:
+    if total_headline_count == 0:
         print("No negative or neutral headlines available for comparison.")
     else:
-        positivity_score = positive_count / non_positive_count
+        positivity_score = positive_count / total_headline_count
         print(f"Positivity Score: {positivity_score:.2f}")
 
     # Domain count limit
