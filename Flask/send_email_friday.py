@@ -96,7 +96,7 @@ def generate_html_body(headlines, urls, description, domains):
         <!-- How It Works Section -->
         <section style="padding: 20px; background-color: #F4F4F4; margin-bottom: 20px;">
             <h2 style="color: #333333; font-size: 1.5em; margin-bottom: 10px;"><u>How It Works</u></h2>
-            <p style="font-size: 1.2em; color: #333333;">This newsletter uses a complex sentiment analysis model to identify the most positive and interesting headlines from established news outlets. This allows us to present you with news that not only informs but also contributes to a more optimistic worldview.</p>
+            <p style="font-size: 1.2em; color: #333333; margin-bottom: 40px;">This newsletter uses a complex sentiment analysis model to identify the most positive and interesting headlines from established news outlets. This allows us to present you with news that not only informs but also contributes to a more optimistic worldview.</p>
         </section>
 
         <!-- Footer Section -->
@@ -120,12 +120,13 @@ def generate_html_body(headlines, urls, description, domains):
     return html_body
 
 
+
 def send_email(html_body, recipients):
     data = {
         'FromEmail': "brightside-news@hudica.info",
         'FromName': "Brightside Newsletter",
-        'Recipients': singleRecipient,
-        'Subject': "Brightside News Tuesday",
+        'Recipients': recipients,
+        'Subject': "Brightside News, TGIF",
         'Text-part': "Your email flight plan!",
         'Html-part': html_body
     }
@@ -138,9 +139,8 @@ def send_email(html_body, recipients):
         print("Failed to decode JSON from response")
         print("Raw response:", result.text) 
 
-singleRecipient = [{'Email': 'hudson@kass.net'}]
 
 # Main execution
 recipients = fetch_recipients()
 html_body = generate_html_body(headlines, urls, description, domains)
-send_email(html_body, singleRecipient)
+send_email(html_body, recipients)

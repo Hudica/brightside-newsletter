@@ -17,6 +17,7 @@ urls = df['URL'].tail(4).tolist()
 description = df['Description'].tail(4).tolist()
 domains = df['Domain'].tail(4).tolist()
 score = df['Score'].tail(1).values[0] * 100
+print(score)
 
 # Set up MongoDB connection
 mongo_conn_string = os.getenv('MONGO_CONN_STRING')
@@ -25,23 +26,23 @@ db = client.BrightSideUsers
 subscribers_collection = db.emails
 
 def get_color(score):
-    if score <= 20:
+    if score <= 10:
         return "#8B0000"  # Dark Red
-    elif score <= 23:
+    elif score <= 13:
         return "#B22222"  # Firebrick
-    elif score <= 26:
+    elif score <= 16:
         return "#DC143C"  # Crimson
-    elif score <= 29:
+    elif score <= 19:
         return "#FF4500"  # OrangeRed
-    elif score <= 32:
+    elif score <= 22:
         return "#FF8C00"  # DarkOrange
-    elif score <= 35:
+    elif score <= 25:
         return "#FFD700"  # Gold
-    elif score <= 38:
+    elif score <= 28:
         return "#ADFF2F"  # GreenYellow
-    elif score <= 41:
+    elif score <= 31:
         return "#9ACD32"  # YellowGreen
-    elif score <= 44:
+    elif score <= 34:
         return "#32CD32"  # LimeGreen
     else:
         return "#228B22"  # ForestGreen for the highest scores (45 and above)
@@ -59,19 +60,6 @@ def generate_html_body(headlines, urls, description, domains):
             <a href="http://news.hudica.info" target="_blank" style="color: #DAA520; text-decoration: none;">The Brightside Newsletter</a>
         </h1>
 
-
-        <!-- Mission Statement Section -->
-        <section style="padding: 20px; background-color: #FFFFFF; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); margin-bottom: 20px;">
-            <h2 style="color: #333333; font-size: 1.5em; margin-bottom: 10px;"><u>Our Mission</u></h2>
-            <p style="font-size: 1.2em; color: #333333;">In a world often overshadowed by negative news, our mission is to shine a light on the good. We scan the web for stories of hope, progress, and unity, bringing you a curated selection of positive news that inspires and uplifts. This newsletter is completely free and only exists to make people smile!</p>
-        </section>
-
-        <!-- How It Works Section -->
-        <section style="padding: 20px; background-color: #F4F4F4; margin-bottom: 20px;">
-            <h2 style="color: #333333; font-size: 1.5em; margin-bottom: 10px;"><u>How It Works</u></h2>
-            <p style="font-size: 1.2em; color: #333333;">This newsletter uses a complex sentiment analysis model to identify the most positive and interesting headlines from established news outlets. This allows us to present you with news that not only informs but also contributes to a more optimistic worldview.</p>
-        </section>
-
         <!-- Positivity Score -->
         <section style="padding: 10px; margin-bottom: 10px;">
             <h2 style="color: #333333; font-size: 2em; margin-bottom: 4px;"><u>Positivity Score</u></h2>
@@ -79,8 +67,10 @@ def generate_html_body(headlines, urls, description, domains):
             <p style="font-size: 0.8em; margin-top: 0px; margin-bottom: 4px;">
                 This score represents the percentage of positive headlines out of the total headlines analyzed.
             </p>
-            <p><a href="https://news.hudica.info/score" style="color: #275af4; font-size: 0.8em; text-decoration: none;">How it's calculated</a></p>
+            <p style="margin-bottom: 30px;"><a href="https://news.hudica.info/score" style="color: #275af4; font-size: 0.8em; text-decoration: none;">How it's calculated</a></p>
         </section>
+
+
 
         <!-- Featured Headlines -->
         <section style="padding: 20px; background-color: #E8E8E8; margin-bottom: 20px;">
@@ -97,12 +87,24 @@ def generate_html_body(headlines, urls, description, domains):
     html_body += f"""
         </section>
 
+        <!-- Mission Statement Section -->
+        <section style="padding: 20px; background-color: #FFFFFF; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); margin-bottom: 20px;">
+            <h2 style="color: #333333; font-size: 1.5em; margin-bottom: 10px;"><u>The Mission</u></h2>
+            <p style="font-size: 1.2em; color: #333333;">In a world often overshadowed by negative news, our mission is to shine a light on the good. We scan the web for stories of hope, progress, and unity, bringing you a curated selection of positive news that inspires and uplifts. This newsletter is completely free and only exists to make people smile!</p>
+        </section>
+
+        <!-- How It Works Section -->
+        <section style="padding: 20px; background-color: #F4F4F4; margin-bottom: 20px;">
+            <h2 style="color: #333333; font-size: 1.5em; margin-bottom: 10px;"><u>How It Works</u></h2>
+            <p style="font-size: 1.2em; color: #333333; margin-bottom: 40px;">This newsletter uses a complex sentiment analysis model to identify the most positive and interesting headlines from established news outlets. This allows us to present you with news that not only informs but also contributes to a more optimistic worldview.</p>
+        </section>
+
         <!-- Footer Section -->
         <!-- Footer Section -->
         <footer style="padding: 30px; background-color: #F3F3F3; text-align: center; color: #333333; font-size: 1em; border-top: 2px solid #CCCCCC;">
             <p style="margin-bottom: 15px;">Thank you for subscribing to The Brightside Newsletter. Stay tuned for more updates and positivity!</p>
             <p style="margin-bottom: 15px;">Did you find this email enjoyable? Forward it to a friend!</p>
-            <p style="margin-bottom: 10px;">Was this email forwarded to you? Visit our home page <a href="https://news.hudica.info" style="color: #3366CC; text-decoration: none;">here</a>.</p>
+            <p style="margin-bottom: 10px;">Was this email forwarded to you? Subscribe <a href="https://news.hudica.info" style="color: #3366CC; text-decoration: none;">here</a>.</p>
             
             <!-- Separator Line -->
             <hr style="border: 0; height: 1px; background-color: #CCCCCC; margin-bottom: 20px;">
@@ -110,7 +112,6 @@ def generate_html_body(headlines, urls, description, domains):
             <p style="margin-bottom: 20px; font-size: 0.9em;">Questions or feedback? Reach out <a href="mailto:brightside-news@hudica.info" style="color: #3366CC; text-decoration: none;">here</a>.</p>
             <p style="font-size: 0.8em; color: #666666;">Want to unsubscribe? <a href="https://news.hudica.info/unsubscribe" style="color: #3366CC; text-decoration: none;">Click here</a>.</p>
             <p style="font-size: 0.8em; color: #666666;">For information about our privacy practices, see our <a href="https://news.hudica.info/unsubscribe" style="color: #3366CC; text-decoration: none;">Privacy Statement.</a>.</p>
-        
         </footer>
 
     </body>
