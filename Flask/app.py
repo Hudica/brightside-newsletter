@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
-from Flask.verify_email import verify_email
+from verify_email import verify_email
 
 app = Flask(__name__)
 load_dotenv()
@@ -27,6 +27,10 @@ def privacy():
 @app.route('/score')
 def positivity_score():
     return render_template('positivity_score.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 @app.route('/subscribe', methods=['POST'])
 def add_subscriber():

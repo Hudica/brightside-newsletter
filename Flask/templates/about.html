@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - The Brightside Newsletter</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #3a3a3a, #1e1e1e);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 5vh 2vw;
+            color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        .header {
+            width: 100%;
+            margin-bottom: 5vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h1, h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5em;
+            animation: fadeIn 1.5s ease-in-out;
+            color: #ffd700;
+        }
+
+        .content {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 5vh auto;
+            animation: fadeIn 2s ease-in-out;
+            color: #dcdcdc;
+            line-height: 1.6;
+            background: rgba(50, 50, 50, 0.9);
+            padding: 5vh 2vw;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            text-align: left;
+        }
+
+        .home-button {
+            padding: 10px 20px;
+            background-color: #765100;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            h1, h2 {
+                font-size: 6vw;
+            }
+
+            .content {
+                font-size: 4vw;
+                max-width: 90vw;
+                line-height: 1.4;
+                padding: 3vh 4vw;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='images/brightside_logo.webp') }}" alt="BrightSide Logo" class="logo">
+        <h1>About Us</h1>
+    </div>
+    <div class="content">
+        <h2>Who is Behind The Brightside?</h2>
+        <p>I am Hudson Kass, a Computer Science student at Northeastern University from Sammamish, WA. My journey with programming began in my freshman year, and it quickly evolved into a passion for solving real-world problems through technology. Outside the classroom, I participate in hackathons, immerse myself in emerging technologies, and thrive on connecting with fellow tech enthusiasts. My interest in creating The Brightside Newsletter originated from a desire to counter the pervasive negativity in the media. Inspired by my grandparents' dismay at the constant barrage of bad news, I envisioned a platform that would highlight the positive, uplifting stories often overshadowed in mainstream outlets. This newsletter is a testament to the power of positivity and my commitment to making a meaningful impact.</p>
+        
+        <h2>Our Mission</h2>
+        <p>Our mission is to illuminate the good in the world, inspire hope, and cultivate a community that values the positive aspects of life. We aim to shift perspectives and contribute to a more optimistic outlook among our readers.</p>
+
+        <h2>How We Operate</h2>
+        <p>The content we share is meticulously selected and analyzed through a proprietary AI-driven sentiment analysis model that I developed. This process ensures that our newsletters consistently present a high positivity rating, offering our readers a refreshing departure from typical media narratives.</p>
+
+        <h2>Get Involved</h2>
+        <p>If you are passionate about spreading positivity and have stories to share, or if you would like to contribute to The Brightside in any way, please reach out. We are always open to new ideas and contributions that can enhance our impact.</p>
+    </div>
+    <div class="footer">
+        <a href="https://news.hudica.info" class="home-button">Home</a>
+    </div>
+</body>
+</html>

@@ -21,6 +21,9 @@
 
         .header {
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin-bottom: 5vh;
         }
 
@@ -30,6 +33,10 @@
             border-radius: 50%;
             margin-bottom: 20px;
             animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .top-button {
+            margin-bottom: 20px; /* Space between the button and the logo */
         }
 
         h1 {
@@ -197,6 +204,7 @@
 </head>
 <body>
     <div class="header">
+        <button onclick="window.location.href='https://news.hudica.info/about'" class="top-button">Who is Brightside?</button>
         <img src="{{ url_for('static', filename='images/brightside_logo.webp') }}" alt="BrightSide Logo" class="logo">
         <h1>Welcome to The Brightside Newsletter!</h1>
         <p class="description">
