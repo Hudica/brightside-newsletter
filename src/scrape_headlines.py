@@ -57,6 +57,8 @@ rss_urls = [
     'https://news.un.org/feed/subscribe/en/news/region/americas/feed/rss.xml',
     'https://feeds.a.dj.com/rss/RSSWorldNews.xml',
     'https://feeds.a.dj.com/rss/RSSWSJD.xml',
+    'https://rss.politico.com/politics-news.xml',
+    'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml',
 ]
 
 # Fetch headlines from each RSS feed
