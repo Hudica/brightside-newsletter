@@ -59,6 +59,8 @@ rss_urls = [
     'https://feeds.a.dj.com/rss/RSSWSJD.xml',
     'https://rss.politico.com/politics-news.xml',
     'https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml',
+    'https://feeds.skynews.com/feeds/rss/politics.xml',
+    'https://feeds.skynews.com/feeds/rss/world.xml',
 ]
 
 # Fetch headlines from each RSS feed
